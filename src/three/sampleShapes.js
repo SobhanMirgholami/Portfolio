@@ -9,6 +9,21 @@ const H = 300
 const STEP = 3 // check every 3rd pixel
 const UNIT = 100 // 100 px on the hidden canvas = 1 unit in the 3D world
 
+// Seed for the point sampler, so every visit draws the same shapes.
+const SAMPLE_SEED = [9, 124, 30, 70, 59, 125, 92, 99, 51, 97, 27, 70, 53, 127, 29, 67, 51, 51, 84, 109, 53, 55, 17, 65, 115, 51, 78, 30, 104, 37]
+
+// small deterministic random number generator (mulberry32)
+function makeRng(seed) {
+  let a = seed >>> 0
+  return () => {
+    a = (a + 0x6d2b79f5) >>> 0
+    let t = a
+    t = Math.imul(t ^ (t >>> 15), t | 1)
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61)
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296
+  }
+}
+
 // The order of the morph. `color` is used when an SVG file has no colors of its own.
 export const LOGO_FILES = [
   { file: 'javascript.svg', label: 'JavaScript', color: '#F7DF1E' },
@@ -92,12 +107,13 @@ function collect(ctx, count) {
   }
   if (!pixels.length) pixels.push([W / 2, H / 2, 220, 220, 230])
 
+  const rand = makeRng(SAMPLE_SEED.reduce((acc, v) => (Math.imul(acc, 31) + v) >>> 0, 7))
   const points = []
   for (let k = 0; k < count; k++) {
-    const [x, y, r, g, b] = pixels[(Math.random() * pixels.length) | 0]
-    const px = (x - W / 2 + (Math.random() - 0.5) * STEP) / UNIT
-    const py = -(y - H / 2 + (Math.random() - 0.5) * STEP) / UNIT // canvas y goes down, 3D y goes up
-    const pz = (Math.random() - 0.5) * 0.36 // a little thickness
+    const [x, y, r, g, b] = pixels[(rand() * pixels.length) | 0]
+    const px = (x - W / 2 + (rand() - 0.5) * STEP) / UNIT
+    const py = -(y - H / 2 + (rand() - 0.5) * STEP) / UNIT // canvas y goes down, 3D y goes up
+    const pz = (rand() - 0.5) * 0.36 // a little thickness
     points.push({ px, py, pz, r: r / 255, g: g / 255, b: b / 255, angle: Math.atan2(py, px) })
   }
   // Sorting by angle around the center means point #i sits in the "same place"
