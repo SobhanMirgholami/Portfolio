@@ -15,6 +15,8 @@
 
 **🌙 Dark · 🪟 Frosted glass · 🌀 3D scroll morph · 📱 Mobile ready**
 
+### 🔗 [See it live](https://sobhan-cosmo.vercel.app)
+
 </div>
 
 ---
@@ -65,7 +67,7 @@ So I made my own logo, `<Co$mo/>`, out of thousands of glowing points that flow 
 | 🎨 Styling | Tailwind CSS 4 with design tokens |
 | 🪐 3D | three.js + React Three Fiber, custom GLSL shader |
 | 🔤 Fonts | Unbounded, Manrope, JetBrains Mono (self-hosted with Fontsource) |
-| 🚀 Hosting | Vercel (planned) |
+| 🚀 Hosting | Vercel, auto-deploy on every push |
 
 ---
 
@@ -101,6 +103,8 @@ public/
 
 assets/
 └── banner1.svg            🎨 README banner
+
+LICENSE.md                 📜 How you can use this code
 ```
 
 </details>
@@ -141,18 +145,28 @@ npm run dev
 - [x] 🪟 Frosted glass sections
 - [x] 📸 Project showcases for IGU Café and Cafe Roll
 - [x] 📬 WhatsApp, Telegram and phone contact chips
+- [x] 🚀 Live on Vercel
+- [x] 📜 Own license: free to use with credit
 
 ### 🚧 In progress
 - [ ] 📸 Instagram Auto-Reply showcase
 
 ### 📌 Planned
-- [ ] 🚀 Deploy on Vercel
 - [ ] 📄 CV download
 - [ ] 🎬 Video editing portfolio and cross-links
 
 ### 🔮 Future ideas
 - [ ] 🌍 Turkish version
 - [ ] ✍️ Blog posts about what I build
+
+---
+
+## 📜 License
+
+This project has its own license. **Please read [LICENSE.md](LICENSE.md) before using the code.**
+
+- ✅ You can copy, change and use it **if you credit me** or **get my permission**
+- 🚫 You can't claim it as your own work
 
 ---
 
