@@ -41,7 +41,7 @@ export default function Contact() {
             {profile.cv && <a href={profile.cv} className={outline}>Download CV</a>}
           </div>
         </div>
-        <div data-morph-anchor="contact" className="h-[200px] w-full flex-1 sm:h-[300px] lg:h-[420px]" aria-hidden="true" />
+        <div data-morph-anchor="contact" className="h-[180px] w-full shrink-0 sm:h-[260px] lg:h-[420px] lg:flex-1" aria-hidden="true" />
       </div>
     </section>
   )

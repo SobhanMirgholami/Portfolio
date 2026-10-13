@@ -13,12 +13,12 @@ function Tags({ tags }) {
   )
 }
 
-function Shot({ image, title, tall }) {
+function Shot({ image, title }) {
   if (image) {
-    return <img src={image} alt={`Screenshot of ${title}`} className={`w-full rounded-2xl object-cover ${tall ? 'h-72 lg:h-80' : 'h-44'}`} loading="lazy" />
+    return <img src={image} alt={`Screenshot of ${title}`} className="aspect-[18/11] w-full rounded-2xl object-cover" loading="lazy" />
   }
   return (
-    <div className={`flex w-full items-center justify-center rounded-2xl border border-dashed border-[#3a3a52] bg-[#161624] font-mono text-xs text-[#77778a] ${tall ? 'h-72 lg:h-80' : 'h-44'}`}>
+    <div className={`flex w-full items-center justify-center rounded-2xl border border-dashed border-white/15 bg-white/[0.03] font-mono text-xs text-[#77778a] aspect-[18/11]`}>
       screenshot coming soon
     </div>
   )
@@ -34,9 +34,9 @@ export default function Projects() {
         </a>
       </div>
 
-      <article className="mb-5 flex flex-col gap-8 rounded-[28px] border border-line bg-panel p-6 sm:p-8 lg:flex-row">
+      <article className="glass mb-5 flex flex-col gap-8 rounded-[28px] p-6 sm:p-8 lg:flex-row">
         <div className="min-w-0 flex-1">
-          <Shot image={featured.image} title={featured.title} tall />
+          <Shot image={featured.image} title={featured.title} />
         </div>
         <div className="flex min-w-0 flex-1 flex-col justify-center gap-4">
           <p className="font-mono text-xs uppercase text-amber">{featured.status}</p>
@@ -50,15 +50,20 @@ export default function Projects() {
         </div>
       </article>
 
-      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-5 md:grid-cols-2">
         {projects.map((p) => (
-          <article key={p.title} className="flex flex-col gap-3.5 rounded-3xl border border-line bg-panel p-6 transition-transform duration-300 hover:-translate-y-1">
+          <article key={p.title} className="glass flex flex-col gap-3.5 rounded-3xl p-6 transition-transform duration-300 hover:-translate-y-1">
             <Shot image={p.image} title={p.title} />
             <p className="font-mono text-xs uppercase text-amber">{p.status}</p>
             <h3 className="font-display text-xl font-semibold">{p.title}</h3>
             <p className="leading-relaxed text-muted">{p.description}</p>
             <p className="mt-auto font-mono text-xs text-dim">{p.tags.join(' · ')}</p>
-            {p.code && <a href={p.code} target="_blank" rel="noreferrer" className="font-mono text-sm text-amber hover:underline">Code ↗</a>}
+            {(p.live || p.code) && (
+              <div className="flex flex-wrap gap-5 font-mono text-sm">
+                {p.live && <a href={p.live} target="_blank" rel="noreferrer" className="text-amber hover:underline">Live ↗</a>}
+                {p.code && <a href={p.code} target="_blank" rel="noreferrer" className="text-amber hover:underline">Code ↗</a>}
+              </div>
+            )}
           </article>
         ))}
       </div>

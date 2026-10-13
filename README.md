@@ -98,4 +98,3 @@ To add a technology to the morph, put its SVG in `public/logos/` and add it to `
 Made with ☕ and late nights in Istanbul
 
 </div>
-make the morphing object more visible by adding glass like effect on each section so the client can see it morphing clearly

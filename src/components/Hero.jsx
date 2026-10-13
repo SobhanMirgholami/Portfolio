@@ -28,7 +28,7 @@ export default function Hero({ sceneReady }) {
 
       <div
         data-morph-anchor="hero"
-        className="relative flex h-[260px] w-full flex-1 items-center justify-center sm:h-[340px] lg:h-[520px]"
+        className="relative flex h-[220px] w-full shrink-0 items-center justify-center sm:h-[320px] lg:h-[520px] lg:flex-1"
         aria-hidden="true"
       >
         <div className={`transition-opacity duration-700 ${sceneReady ? 'opacity-0' : 'opacity-100'}`}>

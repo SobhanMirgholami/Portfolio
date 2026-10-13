@@ -35,7 +35,7 @@ function VideoTeaser() {
       <span className="rounded-full bg-coral px-6 py-4 font-bold text-[#12101a]">{profile.videoSite ? 'Watch the reel ↗' : 'Coming soon'}</span>
     </>
   )
-  const cls = 'flex flex-wrap items-center justify-between gap-6 rounded-[28px] border border-[#3a2236] bg-[#12101a]/90 p-8 sm:p-10'
+  const cls = 'glass glass-coral flex flex-wrap items-center justify-between gap-6 rounded-[28px] p-8 sm:p-10'
   return (
     <div className="relative z-10 mx-auto max-w-7xl px-5 pb-20 sm:px-10">
       {profile.videoSite ? <a href={profile.videoSite} className={`${cls} text-fg`}>{inner}</a> : <div className={cls}>{inner}</div>}

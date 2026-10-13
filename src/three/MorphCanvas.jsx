@@ -158,8 +158,8 @@ function Morph({ stages, reduced }) {
     const toY = (py) => -(py / vh - 0.5) * viewport.height
     let tx = wide ? viewport.width * 0.26 : 0
     let ty = 0
-    let ts = Math.min(1, ((wide ? 0.4 : 0.9) * viewport.width) / SHAPE_W)
-    let to = 0.14
+    let ts = Math.min(1.1, ((wide ? 0.5 : 0.95) * viewport.width) / SHAPE_W)
+    let to = 0.75 // how visible it stays behind the glass sections
 
     let best = null
     let bestW = 0

@@ -23,17 +23,27 @@ export const about = {
 }
 
 export const featured = {
-  status: 'Featured · In progress',
+  status: 'Featured · Live demo',
   title: 'IGU Café Menu',
   description:
-    'Students order from their phones, staff see orders live and the cashier prints an 80mm receipt. Row-level security on every table, prices calculated on the server, and Turkish, English and Arabic support.',
-  tags: ['React', 'Vite', 'Tailwind', 'Supabase', 'Vercel'],
-  live: null,
-  code: null,
-  image: null, // e.g. '/projects/cafe.png'
+    'Students order from their phones, pick a pickup time and watch their order go from received to ready, with a push notification even when the app is closed. Staff work from a live dashboard with PIN login and print 80mm receipts; the manager edits the menu and exports sales reports to Excel. Every table is locked down with row-level security, prices are calculated in the database, and it runs in Turkish, English and Arabic.',
+  tags: ['React', 'Supabase', 'PostgreSQL', 'Realtime', 'Web Push', 'i18next', 'Vercel'],
+  live: 'https://igu-menu-iqcg.vercel.app',
+  code: 'https://github.com/SobhanMirgholami/IGU-menu',
+  image: '/projects/cafe-showcase.jpg',
 }
 
 export const projects = [
+  {
+    status: 'Live',
+    title: 'Cafe Roll Digital Menu',
+    description:
+      'A QR-code menu for a real café, with search, categories and a Persian right-to-left layout. The owner manages products and photos from an admin dashboard; images are resized to WebP in the browser before upload.',
+    tags: ['React', 'Supabase', 'Netlify'],
+    live: 'https://roll-digital-menu.netlify.app',
+    code: 'https://github.com/SobhanMirgholami/roll-menu',
+    image: '/projects/roll-showcase.jpg',
+  },
   {
     status: 'In progress',
     title: 'Instagram Auto-Reply',
@@ -43,26 +53,10 @@ export const projects = [
     code: null,
     image: null,
   },
-  {
-    status: 'Learning build',
-    title: 'AI Agent from Scratch',
-    description: 'A personal AI agent in Python with its own tool registry, built step by step without frameworks.',
-    tags: ['Python', 'LLM APIs'],
-    code: null,
-    image: null,
-  },
-  {
-    status: 'Practice',
-    title: 'React Mini Apps',
-    description: 'Movie Search, Profile Card and Movie List: where I learned components, props and state.',
-    tags: ['React', 'Tailwind', 'Vite'],
-    code: null,
-    image: null,
-  },
 ]
 
 export const stack = [
   { group: 'Front-end', items: ['JavaScript', 'React', 'Vite', 'Tailwind CSS', 'HTML & CSS'] },
-  { group: 'Back-end & languages', items: ['Python', 'Supabase', 'C++'] },
-  { group: 'Tools & design', items: ['Git & GitHub', 'Figma', 'After Effects', 'Premiere Pro'] },
+  { group: 'Back-end & languages', items: ['Python', 'Supabase'] },
+  { group: 'Tools & design', items: ['Git & GitHub', 'After Effects', 'Premiere Pro'] },
 ]
