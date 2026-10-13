@@ -55,6 +55,36 @@ body {
   .glass { background: rgb(15 15 24 / 0.92); }
 }
 
+/* Contact chips: on hover the icon fills with the app's color and the chip floats */
+.contact-chip {
+  --brand: #f5b942;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s, border-color 0.35s;
+}
+.contact-chip .chip-icon { transition: color 0.35s; }
+.contact-chip .chip-icon .fillable { fill: transparent; transition: fill 0.35s; }
+.contact-chip:hover,
+.contact-chip:focus-visible {
+  transform: translateY(-6px);
+  border-color: var(--brand);
+  box-shadow: 0 18px 40px -14px color-mix(in srgb, var(--brand) 70%, transparent);
+}
+.contact-chip:hover .chip-icon,
+.contact-chip:focus-visible .chip-icon {
+  color: var(--brand);
+  animation: chip-float 1.6s ease-in-out infinite;
+}
+.contact-chip:hover .chip-icon .fillable,
+.contact-chip:focus-visible .chip-icon .fillable { fill: var(--brand); }
+@keyframes chip-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-4px) rotate(-6deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .contact-chip, .contact-chip .chip-icon, .contact-chip .chip-icon .fillable { transition: none; }
+  .contact-chip:hover, .contact-chip:focus-visible { transform: none; }
+  .contact-chip:hover .chip-icon, .contact-chip:focus-visible .chip-icon { animation: none; }
+}
+
 /* the blinking cursor in the logo */
 @keyframes blink {
   50% { opacity: 0; }

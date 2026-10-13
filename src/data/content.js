@@ -10,6 +10,9 @@ export const profile = {
   email: 'sobhan.mirgholami.dev@gmail.com',
   github: 'https://github.com/SobhanMirgholami',
   linkedin: 'https://www.linkedin.com/in/sobhan-mirgholami-a2093b417/',
+  phone: '+905541377790', // used for both the phone and WhatsApp buttons
+  phoneDisplay: '+90 554 137 77 90',
+  telegram: 'Cosmodev2099',
   cv: null, // e.g. '/Sobhan-Mirgholami-CV.pdf' after you put the PDF in /public
   videoSite: null, // the video portfolio link, once it exists
 }
