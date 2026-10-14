@@ -81,7 +81,7 @@ body {
 }
 /* Copy email button: the label blurs and morphs into "<copied/>" with a tick that draws itself */
 .copy-btn {
-  transition: width 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.35s, background-color 0.35s;
+  transition: border-color 0.35s, background-color 0.35s;
 }
 .copy-btn[data-copied] {
   border-color: var(--color-amber);

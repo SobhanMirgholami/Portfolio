@@ -2,30 +2,42 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { profile } from '../data/content.js'
 
 // After copying, the label morphs into "<copied/>" with a tick, stays locked for 2s, then morphs back.
-// Both labels sit on top of each other; the button's width animates between their measured sizes.
+// Both labels sit on top of each other; the button is sized to the wider one so nothing around it moves.
 function CopyEmail() {
   const [copied, setCopied] = useState(false)
-  const [widths, setWidths] = useState(null)
+  const [width, setWidth] = useState(null)
   const idleRef = useRef(null)
   const doneRef = useRef(null)
   const timer = useRef(null)
 
   useLayoutEffect(() => {
     // 40px side padding + 2px border; re-measure once the web fonts have loaded
-    const measure = () => setWidths({ idle: idleRef.current.offsetWidth + 42, done: doneRef.current.offsetWidth + 42 })
+    const measure = () => setWidth(Math.max(idleRef.current.offsetWidth, doneRef.current.offsetWidth) + 42)
     measure()
     document.fonts?.ready.then(measure)
   }, [])
   useEffect(() => () => clearTimeout(timer.current), [])
 
   const copy = async () => {
+    let ok = false
     try {
       await navigator.clipboard.writeText(profile.email)
-      setCopied(true)
-      timer.current = setTimeout(() => setCopied(false), 2000)
+      ok = true
     } catch {
-      // clipboard blocked: the address is still visible and selectable
+      // some browsers deny the clipboard API on deployed sites: fall back to the old select-and-copy way
+      const area = document.createElement('textarea')
+      area.value = profile.email
+      area.setAttribute('readonly', '')
+      area.style.cssText = 'position:fixed;opacity:0;pointer-events:none'
+      document.body.appendChild(area)
+      area.select()
+      ok = document.execCommand('copy')
+      area.remove()
     }
+    // if both fail the address is still visible and selectable
+    if (!ok) return
+    setCopied(true)
+    timer.current = setTimeout(() => setCopied(false), 2000)
   }
   return (
     <button
@@ -33,7 +45,7 @@ function CopyEmail() {
       onClick={copy}
       disabled={copied}
       data-copied={copied || undefined}
-      style={widths ? { width: copied ? widths.done : widths.idle } : undefined}
+      style={width ? { width } : undefined}
       className="copy-btn relative overflow-hidden rounded-full border border-[#3a3a4a] px-5 py-[15px] font-bold text-fg enabled:hover:border-fg"
     >
       <span className="invisible" aria-hidden="true">x</span>
