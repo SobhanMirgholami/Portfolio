@@ -1,5 +1,6 @@
 // Turns each shape (your <Co$mo/> logo and the SVG files in /public/logos)
 // into the same number of colored points, so one shape can morph into the next.
+// Each page picks its own set of shapes: DEV_SHAPES for the main site, VIDEO_SHAPES for /video/.
 //
 // How: draw the shape on a hidden 2D canvas, read which pixels are filled,
 // pick N of them, and keep each pixel's color.
@@ -24,14 +25,30 @@ function makeRng(seed) {
   }
 }
 
-// The order of the morph. `color` is used when an SVG file has no colors of its own.
-export const LOGO_FILES = [
-  { file: 'javascript.svg', label: 'JavaScript', color: '#F7DF1E' },
-  { file: 'react.svg', label: 'React', color: '#61DAFB' },
-  { file: 'vite.svg', label: 'Vite', color: '#646CFF' },
-  { file: 'tailwindcss.svg', label: 'Tailwind CSS', color: '#06B6D4' },
-  { file: 'python-original.svg', label: 'Python', color: '#3776AB' },
-]
+// The order of the morph. `accent` colors the $ and cursor of the wordmark.
+// Per logo: `color` is used when an SVG file has no colors of its own.
+// `hollow` + `edge`: pixels of the `hollow` color (a dark app-icon background) are dropped,
+// except along the icon's border, which is drawn in `edge`. Dark dots barely show on a dark
+// page, so this keeps the points for the letters and leaves a clean outline.
+export const DEV_SHAPES = {
+  accent: '#f5b942',
+  logos: [
+    { file: 'javascript.svg', label: 'JavaScript', color: '#F7DF1E' },
+    { file: 'react.svg', label: 'React', color: '#61DAFB' },
+    { file: 'vite.svg', label: 'Vite', color: '#646CFF' },
+    { file: 'tailwindcss.svg', label: 'Tailwind CSS', color: '#06B6D4' },
+    { file: 'python-original.svg', label: 'Python', color: '#3776AB' },
+  ],
+}
+
+export const VIDEO_SHAPES = {
+  accent: '#ff5d7a',
+  logos: [
+    { file: 'Adobe_Premiere_Pro_CC_2026_icon.svg', label: 'Premiere Pro', hollow: '#00005B', edge: '#9999FF' },
+    { file: 'Adobe_After_Effects_CC_icon.svg', label: 'After Effects', hollow: '#00005B', edge: '#9999FF' },
+    { file: 'Adobe_Corporate_logo.svg', label: 'Adobe' },
+  ],
+}
 
 function makeContext() {
   const canvas = document.createElement('canvas')
@@ -40,12 +57,12 @@ function makeContext() {
   return canvas.getContext('2d', { willReadFrequently: true })
 }
 
-function drawWordmark(ctx) {
+function drawWordmark(ctx, accent) {
   const parts = [
     ['<Co', '#dcdce8'],
-    ['$', '#f5b942'],
+    ['$', accent],
     ['mo/>', '#dcdce8'],
-    ['CURSOR', '#f5b942'],
+    ['CURSOR', accent],
   ]
   let size = 190
   const font = (s) => `600 ${s}px "JetBrains Mono", monospace`
@@ -74,8 +91,13 @@ async function loadSvg(url, fallbackColor) {
   if (!res.ok) throw new Error(`missing ${url}`)
   let svg = await res.text()
   const hasOwnColors = /#[0-9a-f]{3,8}\b|rgb\(|fill="(?!none)[a-z]/i.test(svg)
-  // give the SVG a real size so the browser rasterizes it sharply
-  if (!/<svg[^>]*\swidth=/i.test(svg)) svg = svg.replace(/<svg/i, '<svg width="600" height="600"')
+  // give the SVG a real size (keeping its shape) so the browser rasterizes it sharply
+  if (!/<svg[^>]*\swidth=/i.test(svg)) {
+    const [, , vw = 1, vh = 1] = (svg.match(/viewBox="([^"]+)"/i)?.[1] ?? '').split(/[\s,]+/).map(Number)
+    const ratio = vw / vh || 1
+    const w = ratio >= 1 ? 1200 : 1200 * ratio
+    svg = svg.replace(/<svg/i, `<svg width="${Math.round(w)}" height="${Math.round(w / ratio)}"`)
+  }
   // one-color icons have no fill, so they'd come out black: paint them in the brand color
   if (!hasOwnColors && fallbackColor) svg = svg.replace(/<svg/i, `<svg fill="${fallbackColor}"`)
   const blobUrl = URL.createObjectURL(new Blob([svg], { type: 'image/svg+xml' }))
@@ -89,20 +111,37 @@ async function loadSvg(url, fallbackColor) {
   }
 }
 
+// fit inside the canvas, whether the logo is square or a wide wordmark
 function drawImage(ctx, img) {
-  const h = H * 0.88
-  const w = h * ((img.naturalWidth || 1) / (img.naturalHeight || 1))
+  const nw = img.naturalWidth || 1
+  const nh = img.naturalHeight || 1
+  const scale = Math.min((W * 0.9) / nw, (H * 0.88) / nh)
+  const w = nw * scale
+  const h = nh * scale
   ctx.drawImage(img, (W - w) / 2, (H - h) / 2, w, h)
 }
 
+const hexToRgb = (hex) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16))
+
 // Read the filled pixels and return exactly `count` points.
-function collect(ctx, count) {
+function collect(ctx, count, { hollow, edge } = {}) {
   const data = ctx.getImageData(0, 0, W, H).data
+  const filled = (x, y) => x >= 0 && y >= 0 && x < W && y < H && data[(y * W + x) * 4 + 3] > 140
+  const hollowRgb = hollow && hexToRgb(hollow)
+  const edgeRgb = edge && hexToRgb(edge)
   const pixels = []
   for (let y = 0; y < H; y += STEP) {
     for (let x = 0; x < W; x += STEP) {
       const i = (y * W + x) * 4
-      if (data[i + 3] > 140) pixels.push([x, y, data[i], data[i + 1], data[i + 2]])
+      if (data[i + 3] <= 140) continue
+      if (hollowRgb && Math.abs(data[i] - hollowRgb[0]) + Math.abs(data[i + 1] - hollowRgb[1]) + Math.abs(data[i + 2] - hollowRgb[2]) < 60) {
+        // inside the dark background: keep only a thin border
+        const d = STEP * 2
+        if (filled(x - d, y) && filled(x + d, y) && filled(x, y - d) && filled(x, y + d)) continue
+        pixels.push([x, y, ...edgeRgb])
+        continue
+      }
+      pixels.push([x, y, data[i], data[i + 1], data[i + 2]])
     }
   }
   if (!pixels.length) pixels.push([W / 2, H / 2, 220, 220, 230])
@@ -129,22 +168,22 @@ function collect(ctx, count) {
   return { positions, colors }
 }
 
-export async function buildStages(count) {
+export async function buildStages(count, { accent, logos: logoFiles }) {
   if (document.fonts?.load) {
     await Promise.race([document.fonts.load('600 100px "JetBrains Mono"'), new Promise((r) => setTimeout(r, 2500))])
   }
   const ctx = makeContext()
 
-  drawWordmark(ctx)
+  drawWordmark(ctx, accent)
   const wordmark = { label: '<Co$mo/>', ...collect(ctx, count) }
 
   const logos = []
-  for (const { file, label, color } of LOGO_FILES) {
+  for (const { file, label, color, hollow, edge } of logoFiles) {
     try {
       const img = await loadSvg(`/logos/${file}`, color)
       ctx.clearRect(0, 0, W, H)
       drawImage(ctx, img)
-      logos.push({ label, ...collect(ctx, count) })
+      logos.push({ label, ...collect(ctx, count, { hollow, edge }) })
     } catch (err) {
       console.warn(`[morph] skipped ${file}:`, err.message)
     }

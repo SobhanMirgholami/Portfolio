@@ -8,5 +8,12 @@ export default defineConfig({
   build: {
     // three.js is ~900 kB before compression; it's lazy-loaded after the page shows, so that's fine
     chunkSizeWarningLimit: 1000,
+    // two pages: the main site and the video portfolio at /video/
+    rollupOptions: {
+      input: {
+        main: 'index.html',
+        video: 'video/index.html',
+      },
+    },
   },
 })

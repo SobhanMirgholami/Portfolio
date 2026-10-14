@@ -99,7 +99,7 @@ function ContactChip({ href, label, value, icon, brand, external }) {
   )
 }
 
-export default function Contact() {
+export default function Contact({ note = 'Open to internships, junior roles and freelance work.' }) {
   const outline = 'rounded-full border border-[#3a3a4a] px-5 py-[15px] font-bold text-fg hover:border-fg'
   return (
     <section id="contact" className="relative z-10 mx-auto max-w-7xl scroll-mt-20 border-t border-line/70 px-5 py-20 sm:px-10 sm:py-28">
@@ -111,7 +111,7 @@ export default function Contact() {
             <br />
             something.
           </h2>
-          <p className="text-lg text-muted">Open to internships, junior roles and freelance work.</p>
+          <p className="text-lg text-muted">{note}</p>
           <p className="select-all break-all font-mono text-base text-fg sm:text-lg">{profile.email}</p>
           <div className="flex flex-wrap gap-3">
             <a href={`mailto:${profile.email}`} className="rounded-full bg-amber px-6 py-4 font-bold text-ink">Email me</a>
@@ -123,7 +123,7 @@ export default function Contact() {
           <div className="flex w-full flex-wrap gap-3">
             <ContactChip href={`https://wa.me/${profile.phone.replace('+', '')}`} label="WhatsApp" value="Chat with me" icon="whatsapp" brand="#25D366" external />
             <ContactChip href={`https://t.me/${profile.telegram}`} label="Telegram" value={`@${profile.telegram}`} icon="telegram" brand="#26A5E4" external />
-            <ContactChip href={`tel:${profile.phone}`} label="Phone" value={profile.phoneDisplay} icon="phone" brand="#f5b942" />
+            <ContactChip href={`tel:${profile.phone}`} label="Phone" value={profile.phoneDisplay} icon="phone" brand="var(--color-amber)" />
           </div>
         </div>
         <div data-morph-anchor="contact" className="h-[180px] w-full shrink-0 sm:h-[260px] lg:h-[420px] lg:flex-1" aria-hidden="true" />

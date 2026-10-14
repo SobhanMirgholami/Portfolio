@@ -37,7 +37,7 @@ export function LogoFallback({ size = 84 }) {
         <span className="metal-text">&lt;Co</span>
         <span className="metal-amber">$</span>
         <span className="metal-text">mo/&gt;</span>
-        <span className="ml-2 inline-block bg-amber" style={{ width: size * 0.45, height: size * 0.9, boxShadow: '0 0 40px #f5b942' }} />
+        <span className="ml-2 inline-block bg-amber" style={{ width: size * 0.45, height: size * 0.9, boxShadow: '0 0 40px var(--color-amber)' }} />
       </div>
     </div>
   )

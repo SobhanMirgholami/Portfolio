@@ -1,11 +1,11 @@
 import Section from './Section.jsx'
 import { stack } from '../data/content.js'
 
-export default function Stack() {
+export default function Stack({ groups = stack, label = '// stack' }) {
   return (
-    <Section id="stack" label="// stack">
+    <Section id="stack" label={label}>
       <div className="glass flex flex-col gap-8 rounded-[28px] p-7 sm:p-10 lg:ml-[20%]">
-        {stack.map((g) => (
+        {groups.map((g) => (
           <div key={g.group} className="flex flex-col gap-3">
             <h3 className="font-display text-base font-semibold">{g.group}</h3>
             <ul className="flex flex-wrap gap-2.5">

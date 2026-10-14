@@ -14,7 +14,15 @@ export const profile = {
   phoneDisplay: '+90 554 137 77 90',
   telegram: 'Cosmodev2099',
   cv: null, // e.g. '/Sobhan-Mirgholami-CV.pdf' after you put the PDF in /public
-  videoSite: null, // the video portfolio link, once it exists
+  videoSite: '/video/', // the video portfolio page (its text is in data/video.js)
+}
+
+// The card that opens the video portfolio.
+export const videoTeaser = {
+  kicker: 'the other side of Co$mo',
+  title: 'Video editing & motion graphics',
+  text: 'Years of freelance editing, motion design and color. Reels, ads and YouTube work.',
+  image: null, // e.g. '/media/teaser.jpg' in public/media/ (a photo of you or a frame from your reel, 16:9)
 }
 
 export const about = {

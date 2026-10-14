@@ -3,7 +3,8 @@ import { LogoFallback } from './Logo.jsx'
 
 // The right column is an empty "slot". The 3D logo is drawn on a fixed canvas
 // behind the page and flies to wherever this slot is (see three/MorphCanvas.jsx).
-export default function Hero({ sceneReady }) {
+// `text` and `actions` change per page; actions are [{ href, label, primary }].
+export default function Hero({ sceneReady, text, actions }) {
   return (
     <section id="top" className="mx-auto flex max-w-7xl flex-col-reverse items-center gap-8 px-5 pb-20 pt-6 sm:px-10 lg:min-h-[78vh] lg:flex-row lg:gap-12">
       <div className="relative z-10 flex min-w-0 flex-1 flex-col gap-7">
@@ -13,16 +14,19 @@ export default function Hero({ sceneReady }) {
           <br />
           Mirgholami
         </h1>
-        <p className="max-w-[30rem] text-lg leading-relaxed text-muted sm:text-xl">
-          {profile.role} {profile.pitch}
-        </p>
+        <p className="max-w-[30rem] text-lg leading-relaxed text-muted sm:text-xl">{text}</p>
         <div className="flex flex-wrap gap-3">
-          <a href="#projects" className="rounded-full bg-fg px-6 py-4 font-bold text-ink">
-            See projects
-          </a>
-          <a href="#contact" className="rounded-full border border-[#3a3a4a] px-6 py-[15px] font-bold text-fg hover:border-fg">
-            Get in touch
-          </a>
+          {actions.map((a) =>
+            a.primary ? (
+              <a key={a.href} href={a.href} className="rounded-full bg-fg px-6 py-4 font-bold text-ink">
+                {a.label}
+              </a>
+            ) : (
+              <a key={a.href} href={a.href} className="rounded-full border border-[#3a3a4a] px-6 py-[15px] font-bold text-fg hover:border-fg">
+                {a.label}
+              </a>
+            ),
+          )}
         </div>
       </div>
 

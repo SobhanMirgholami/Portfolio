@@ -229,14 +229,14 @@ function Morph({ stages, reduced }) {
   )
 }
 
-export default function MorphCanvas({ onReady }) {
+export default function MorphCanvas({ shapes, onReady }) {
   const [stages, setStages] = useState(null)
   const reduced = useMemo(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches, [])
 
   useEffect(() => {
     let alive = true
     const count = window.innerWidth < 768 ? 3200 : 6500 // fewer points on phones
-    buildStages(count).then((s) => {
+    buildStages(count, shapes).then((s) => {
       if (!alive) return
       setStages(s)
       onReady?.()
@@ -244,7 +244,7 @@ export default function MorphCanvas({ onReady }) {
     return () => {
       alive = false
     }
-  }, [onReady])
+  }, [shapes, onReady])
 
   if (!stages) return null
   return (
