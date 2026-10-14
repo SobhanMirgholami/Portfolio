@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Section from './Section.jsx'
 import { devPage, featured, projects, profile } from '../data/content.js'
 import { useText } from '../i18n.jsx'
@@ -21,6 +22,36 @@ function Shot({ image, title, t }) {
   return (
     <div className={`flex w-full items-center justify-center rounded-2xl border border-dashed border-white/15 bg-white/[0.03] font-mono text-xs text-[#77778a] aspect-[18/11]`}>
       {t.screenshotSoon}
+    </div>
+  )
+}
+
+// A project with `gallery` gets thumbnails under its picture; the first entry is its `image`.
+function Gallery({ image, gallery, title, t }) {
+  const items = [{ src: image, label: title }, ...gallery]
+  const [active, setActive] = useState(0)
+  const current = items[active]
+  return (
+    <div className="flex flex-col gap-2.5">
+      <a href={current.src} target="_blank" rel="noreferrer" title={t.fullSize} className="block overflow-hidden rounded-2xl bg-black/40">
+        <img src={current.src} alt={`${t.screenshotOf} ${title}: ${current.label}`} className="aspect-[18/11] w-full object-contain" loading="lazy" />
+      </a>
+      <p className="font-mono text-xs text-dim" aria-live="polite">{current.label}</p>
+      <ul className="flex gap-2 overflow-x-auto pb-1" aria-label={t.gallery}>
+        {items.map((it, i) => (
+          <li key={it.src} className="shrink-0">
+            <button
+              type="button"
+              onClick={() => setActive(i)}
+              aria-pressed={i === active}
+              aria-label={it.label}
+              className={`block h-11 w-[72px] cursor-pointer overflow-hidden rounded-lg border-2 p-0 transition-colors ${i === active ? 'border-amber' : 'border-transparent opacity-70 hover:opacity-100'}`}
+            >
+              <img src={it.src} alt="" className="size-full object-cover" loading="lazy" />
+            </button>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
@@ -57,7 +88,7 @@ export default function Projects() {
       <div className="grid gap-5 md:grid-cols-2">
         {list.map((p) => (
           <article key={p.title} className="glass flex flex-col gap-3.5 rounded-3xl p-6 transition-transform duration-300 hover:-translate-y-1">
-            <Shot image={p.image} title={p.title} t={t} />
+            {p.gallery ? <Gallery image={p.image} gallery={p.gallery} title={p.title} t={t} /> : <Shot image={p.image} title={p.title} t={t} />}
             <p className="font-mono text-xs uppercase text-amber">{p.status}</p>
             <h3 className="font-display text-xl font-semibold">{p.title}</h3>
             <p className="leading-relaxed text-muted">{p.description}</p>

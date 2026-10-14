@@ -79,6 +79,8 @@ export const devPage = {
     liveDemo: { en: 'Live demo ↗', fa: 'دموی زنده ↖', tr: 'Canlı demo ↗' },
     live: { en: 'Live ↗', fa: 'نسخه‌ی زنده ↖', tr: 'Canlı ↗' },
     code: { en: 'Code ↗', fa: 'کد ↖', tr: 'Kod ↗' },
+    gallery: { en: 'Screenshots', fa: 'اسکرین‌شات‌ها', tr: 'Ekran görüntüleri' },
+    fullSize: { en: 'Open full size', fa: 'نمایش در اندازه‌ی کامل', tr: 'Tam boyutta aç' },
   },
 }
 
@@ -126,6 +128,30 @@ export const featured = {
 }
 
 export const projects = [
+  {
+    status: { en: 'Live · Client project', fa: 'آنلاین · پروژه‌ی مشتری', tr: 'Yayında · Müşteri projesi' },
+    title: { en: 'Nikan Turkish Group', fa: 'گروه نیکان ترکیش', tr: 'Nikan Turkish Group' },
+    description: {
+      en: 'A full redesign for an Istanbul services company, in Persian (right-to-left) and Turkish, with light and dark themes. Everything on the site, from the daily lira rate to property listings, announcements, photos and contact buttons, is edited from a Persian admin panel. Row-level security lets visitors only read published content and send messages.',
+      fa: 'بازطراحی کامل سایت یک شرکت خدماتی در استانبول، به فارسی (راست‌به‌چپ) و ترکی، با پوسته‌ی روشن و تیره. همه‌چیز سایت، از نرخ روز لیر تا آگهی‌های ملک، اطلاعیه‌ها، عکس‌ها و دکمه‌های تماس، از یک پنل مدیریت فارسی ویرایش می‌شود. row-level security باعث می‌شود بازدیدکننده‌ها فقط محتوای منتشرشده را ببینند و پیام بفرستند.',
+      tr: 'İstanbul’daki bir hizmet şirketi için Farsça (sağdan sola) ve Türkçe, açık ve koyu temalı baştan yeni bir tasarım. Günlük lira kurundan emlak ilanlarına, duyurulara, fotoğraflara ve iletişim düğmelerine kadar sitedeki her şey Farsça bir yönetim panelinden düzenlenir. Row-level security sayesinde ziyaretçiler yalnızca yayındaki içeriği görür ve mesaj gönderebilir.',
+    },
+    tags: ['React', 'Supabase', 'PostgreSQL', 'RLS', 'i18next', 'Tailwind CSS', 'Vercel'],
+    live: 'https://nikan-turkish.vercel.app',
+    code: null, // client project, source is private
+    image: '/projects/nikan-showcase.jpg',
+    gallery: [
+      { src: '/projects/nikan/client-home-fa.webp', label: { en: 'Home page, Persian', fa: 'صفحه‌ی اصلی، فارسی', tr: 'Ana sayfa, Farsça' } },
+      { src: '/projects/nikan/client-home-fa-dark.webp', label: { en: 'Dark theme', fa: 'پوسته‌ی تیره', tr: 'Koyu tema' } },
+      { src: '/projects/nikan/client-home-tr.webp', label: { en: 'Home page, Turkish', fa: 'صفحه‌ی اصلی، ترکی', tr: 'Ana sayfa, Türkçe' } },
+      { src: '/projects/nikan/client-real-estate.webp', label: { en: 'Real estate with filters', fa: 'املاک با فیلتر', tr: 'Filtreli emlak sayfası' } },
+      { src: '/projects/nikan/client-contact.webp', label: { en: 'Contact form by department', fa: 'فرم تماس با انتخاب واحد', tr: 'Birim seçmeli iletişim formu' } },
+      { src: '/projects/nikan/client-mobile-fa.webp', label: { en: 'Mobile', fa: 'موبایل', tr: 'Mobil' } },
+      { src: '/projects/nikan/admin-dashboard.webp', label: { en: 'Admin: dashboard and lira rate', fa: 'پنل مدیریت: داشبورد و نرخ لیر', tr: 'Yönetim: panel ve lira kuru' } },
+      { src: '/projects/nikan/admin-listings.webp', label: { en: 'Admin: listing editor with FA/TR tabs', fa: 'پنل مدیریت: ویرایش آگهی با زبانه‌های فارسی و ترکی', tr: 'Yönetim: FA/TR sekmeli ilan düzenleyici' } },
+      { src: '/projects/nikan/admin-pictures.webp', label: { en: 'Admin: slider and pictures', fa: 'پنل مدیریت: اسلایدر و تصاویر', tr: 'Yönetim: slayt ve görseller' } },
+    ],
+  },
   {
     status: { en: 'Live', fa: 'آنلاین', tr: 'Yayında' },
     title: { en: 'Cafe Roll Digital Menu', fa: 'منوی دیجیتال کافه رول', tr: 'Cafe Roll Dijital Menü' },
