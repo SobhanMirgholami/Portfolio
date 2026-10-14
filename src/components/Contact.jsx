@@ -1,20 +1,50 @@
-import { useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { profile } from '../data/content.js'
 
+// After copying, the label morphs into "<copied/>" with a tick, stays locked for 2s, then morphs back.
+// Both labels sit on top of each other; the button's width animates between their measured sizes.
 function CopyEmail() {
   const [copied, setCopied] = useState(false)
+  const [widths, setWidths] = useState(null)
+  const idleRef = useRef(null)
+  const doneRef = useRef(null)
+  const timer = useRef(null)
+
+  useLayoutEffect(() => {
+    // 40px side padding + 2px border; re-measure once the web fonts have loaded
+    const measure = () => setWidths({ idle: idleRef.current.offsetWidth + 42, done: doneRef.current.offsetWidth + 42 })
+    measure()
+    document.fonts?.ready.then(measure)
+  }, [])
+  useEffect(() => () => clearTimeout(timer.current), [])
+
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(profile.email)
       setCopied(true)
-      setTimeout(() => setCopied(false), 1800)
+      timer.current = setTimeout(() => setCopied(false), 2000)
     } catch {
       // clipboard blocked: the address is still visible and selectable
     }
   }
   return (
-    <button type="button" onClick={copy} className="rounded-full border border-[#3a3a4a] px-5 py-[15px] font-bold text-fg hover:border-fg">
-      {copied ? 'Copied ✓' : 'Copy email'}
+    <button
+      type="button"
+      onClick={copy}
+      disabled={copied}
+      data-copied={copied || undefined}
+      style={widths ? { width: copied ? widths.done : widths.idle } : undefined}
+      className="copy-btn relative overflow-hidden rounded-full border border-[#3a3a4a] px-5 py-[15px] font-bold text-fg enabled:hover:border-fg"
+    >
+      <span className="invisible" aria-hidden="true">x</span>
+      <span ref={idleRef} className="copy-label copy-idle" aria-hidden={copied}>Copy email</span>
+      <span ref={doneRef} className="copy-label copy-done flex items-center gap-2 font-mono text-amber" aria-hidden={!copied}>
+        <svg className="h-4 w-4" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+          <path className="copy-tick" d="M3 8.5 6.5 12 13 4.5" />
+        </svg>
+        {'<copied/>'}
+      </span>
+      <span className="sr-only" aria-live="polite">{copied ? 'Email copied' : ''}</span>
     </button>
   )
 }

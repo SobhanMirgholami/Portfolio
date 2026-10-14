@@ -79,7 +79,30 @@ body {
   0%, 100% { transform: translateY(0) rotate(0deg); }
   50% { transform: translateY(-4px) rotate(-6deg); }
 }
+/* Copy email button: the label blurs and morphs into "<copied/>" with a tick that draws itself */
+.copy-btn {
+  transition: width 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.35s, background-color 0.35s;
+}
+.copy-btn[data-copied] {
+  border-color: var(--color-amber);
+  background-color: rgb(245 185 66 / 0.08);
+}
+.copy-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  white-space: nowrap;
+  transition: opacity 0.35s, filter 0.35s, transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.copy-idle { transform: translate(-50%, -50%); }
+.copy-done { opacity: 0; filter: blur(6px); transform: translate(-50%, 10%) scale(0.7); }
+.copy-btn[data-copied] .copy-idle { opacity: 0; filter: blur(6px); transform: translate(-50%, -110%) scale(0.7); }
+.copy-btn[data-copied] .copy-done { opacity: 1; filter: blur(0); transform: translate(-50%, -50%); }
+.copy-tick { stroke-dasharray: 16; stroke-dashoffset: 16; }
+.copy-btn[data-copied] .copy-tick { stroke-dashoffset: 0; transition: stroke-dashoffset 0.4s 0.2s ease-out; }
+
 @media (prefers-reduced-motion: reduce) {
+  .copy-btn, .copy-label, .copy-btn[data-copied] .copy-tick { transition: none; }
   .contact-chip, .contact-chip .chip-icon, .contact-chip .chip-icon .fillable { transition: none; }
   .contact-chip:hover, .contact-chip:focus-visible { transform: none; }
   .contact-chip:hover .chip-icon, .contact-chip:focus-visible .chip-icon { animation: none; }
