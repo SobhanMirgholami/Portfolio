@@ -53,12 +53,13 @@ const ACCENT = { dev: '#f5b942', video: '#ff5d7a' }
 const CURTAIN_LABEL = {
   en: { dev: 'dev work', video: 'video work' },
   fa: { dev: 'کارهای برنامه‌نویسی', video: 'کارهای ویدیویی' },
+  tr: { dev: 'yazılım işleri', video: 'video işleri' },
 }
 function curtain(side, phase) {
   const el = document.createElement('div')
   el.className = `curtain curtain-${phase}`
   el.style.setProperty('--curtain-accent', ACCENT[side])
-  el.innerHTML = `<span>// ${CURTAIN_LABEL[document.documentElement.lang === 'fa' ? 'fa' : 'en'][side]}</span>`
+  el.innerHTML = `<span>// ${(CURTAIN_LABEL[document.documentElement.lang] ?? CURTAIN_LABEL.en)[side]}</span>`
   el.setAttribute('aria-hidden', 'true')
   document.body.appendChild(el)
   return el

@@ -1,29 +1,34 @@
 import Logo from './Logo.jsx'
 import { ui } from '../data/content.js'
-import { useLang, useText } from '../i18n.jsx'
+import { LANGS, useLang, useText } from '../i18n.jsx'
 
-// EN | فا switch. It stays left-to-right in both languages so the two options never swap places.
-function LangToggle() {
+// EN | فا | TR switch. It stays left-to-right in every language so the options never swap places.
+const LANG_NAMES = { en: ['EN', 'English'], fa: ['فا', 'فارسی'], tr: ['TR', 'Türkçe'] }
+
+function LangSwitch() {
   const { lang, setLang } = useLang()
   const t = useText(ui)
-  const option = (code, label) => (
-    <span lang={code} className={lang === code ? 'text-amber' : 'text-dim'}>
-      {label}
-    </span>
-  )
   return (
-    <button
-      type="button"
+    <div
+      role="group"
       dir="ltr"
-      onClick={() => setLang(lang === 'fa' ? 'en' : 'fa')}
-      aria-label={t.switchLang}
-      title={t.switchLang}
-      className="flex items-center gap-1.5 rounded-full border border-[#3a3a4a] px-3.5 py-2 font-mono text-[13px] font-semibold transition-colors hover:border-fg"
+      aria-label={t.language}
+      className="flex items-center rounded-full border border-[#3a3a4a] p-1 font-mono text-[13px] font-semibold"
     >
-      {option('en', 'EN')}
-      <span className="text-[#3a3a4a]" aria-hidden="true">|</span>
-      {option('fa', 'فا')}
-    </button>
+      {LANGS.map((code) => (
+        <button
+          key={code}
+          type="button"
+          lang={code}
+          onClick={() => setLang(code)}
+          aria-pressed={lang === code}
+          title={LANG_NAMES[code][1]}
+          className={`rounded-full px-2.5 py-1 transition-colors ${lang === code ? 'bg-amber/15 text-amber' : 'text-dim hover:text-fg'}`}
+        >
+          {LANG_NAMES[code][0]}
+        </button>
+      ))}
+    </div>
   )
 }
 
@@ -44,7 +49,7 @@ export default function Nav({ links, cta }) {
           ))}
         </nav>
         <div className="flex items-center gap-2.5">
-          <LangToggle />
+          <LangSwitch />
           <a href={cta.href} className={`rounded-full px-4 py-2.5 font-mono text-[13px] font-semibold text-ink ${cta.className}`}>
             {cta.label}
           </a>
