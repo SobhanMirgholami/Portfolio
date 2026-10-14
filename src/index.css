@@ -55,7 +55,7 @@ body {
   .glass { background: rgb(15 15 24 / 0.92); }
 }
 
-/* Contact chips: on hover the icon fills with the app's color and the chip floats */
+/* Contact chips: on hover the icon takes the app's color and the chip floats */
 .contact-chip {
   --brand: #f5b942;
   transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s, border-color 0.35s;

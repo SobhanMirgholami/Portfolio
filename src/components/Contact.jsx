@@ -19,17 +19,17 @@ function CopyEmail() {
   )
 }
 
-// Simple line icons. The part marked "fillable" fills with the app's color on hover.
+// Simple line icons. On hover the lines take the app's color; the part marked "fillable" also fills.
 const icons = {
   whatsapp: (
     <>
-      <path className="fillable" d="M3.5 20.5l1.4-4.2A8.5 8.5 0 1 1 8 19.3z" />
+      <path d="M3.5 20.5l1.4-4.2A8.5 8.5 0 1 1 8 19.3z" />
       <path d="M9 8.6c.2-.5.6-.6.9-.6h.4c.2 0 .4.1.5.4l.6 1.4c.1.2 0 .5-.1.6l-.5.6c.6 1.1 1.4 1.9 2.5 2.5l.6-.5c.2-.2.4-.2.6-.1l1.4.6c.3.1.4.3.4.5v.4c0 .3-.1.7-.6.9-1.6.8-4.7-1-6.1-3.4C8.8 11 8.6 9.6 9 8.6z" fill="currentColor" stroke="none" />
     </>
   ),
   telegram: (
     <>
-      <path className="fillable" d="M21.5 3.5 2.8 10.7c-.8.3-.8 1.4 0 1.6l4.6 1.5 1.8 5.6c.2.7 1.1.9 1.6.4l2.6-2.5 4.8 3.5c.6.4 1.4.1 1.6-.6l3-15.4c.2-.8-.6-1.5-1.3-1.3z" />
+      <path d="M21.5 3.5 2.8 10.7c-.8.3-.8 1.4 0 1.6l4.6 1.5 1.8 5.6c.2.7 1.1.9 1.6.4l2.6-2.5 4.8 3.5c.6.4 1.4.1 1.6-.6l3-15.4c.2-.8-.6-1.5-1.3-1.3z" />
       <path d="M7.4 13.8 18 6.7l-8.2 8.1" />
     </>
   ),
