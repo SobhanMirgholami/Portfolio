@@ -25,7 +25,7 @@ You're free to copy, change and use this project, as long as you **credit me** o
 
 ## ✅ What you can do
 
-You may **copy, modify, merge, use, publish, deploy and share** this project or any part of it, as long as you do **at least one** of these:
+You may **copy, modify, merge, use, publish, deploy and share** this project or any part of it (except the files listed under *Not included* below), as long as you do **at least one** of these:
 
 - 🏷️ **Give me credit:** keep this license file in your copy, and show a visible credit (see below) in your README, your app's about or credits page, or wherever you describe the project.
 - ✉️ **Get my permission in writing:** an email is enough. Tell me what you want to use and how.
@@ -53,6 +53,18 @@ Based on [Co$mo Portfolio](https://github.com/SobhanMirgholami/Portfolio) by [So
 - 🙅 Claim this project, or any part of it, as **your own original work**
 - ✂️ Remove or change this license, the copyright line, or any **author identifiers inside the code**
 - 🤝 Suggest that I **made, support or approve** your version unless I said so
+
+---
+
+## 🎬 Not included: videos and images
+
+This license covers the **code and design** only. These files are **not** covered and may **not** be copied, reused or republished:
+
+- 🎞️ Everything in `public/videos/` (my edits for clients, showing real people and businesses)
+- 📸 Everything in `public/projects/` (screenshots of real products)
+- 🧑 Any photo of me
+
+They're here so the portfolio can show them. If you use the code, replace them with your own content.
 
 ---
 

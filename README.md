@@ -4,7 +4,7 @@
 
 # 🪐 &lt;Co$mo/&gt; Portfolio
 
-### My developer portfolio, where my logo morphs into my tech stack as you scroll.
+### My portfolio in two parts: a dev side where my logo morphs into my tech stack, and a video side where it morphs into my editing tools.
 
 ![Status](https://img.shields.io/badge/status-in%20development-orange?style=for-the-badge)
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
@@ -13,9 +13,9 @@
 ![Three.js](https://img.shields.io/badge/Three.js-000000?style=for-the-badge&logo=threedotjs&logoColor=white)
 ![WebGL](https://img.shields.io/badge/WebGL-990000?style=for-the-badge&logo=webgl&logoColor=white)
 
-**🌙 Dark · 🪟 Frosted glass · 🌀 3D scroll morph · 📱 Mobile ready**
+**🌙 Dark · 🪟 Frosted glass · 🌀 3D scroll morph · 🎬 Video portfolio · 📱 Mobile ready**
 
-### 🔗 [See it live](https://sobhan-cosmo.vercel.app)
+### 🔗 [Dev side](https://sobhan-cosmo.vercel.app) · [Video side](https://sobhan-cosmo.vercel.app/video/)
 
 </div>
 
@@ -25,19 +25,22 @@
 
 Before I started writing code, I spent years editing videos and making motion graphics. A plain portfolio with a photo and a list of skills didn't feel like me.
 
-So I made my own logo, `<Co$mo/>`, out of thousands of glowing points that flow into each technology I use as you scroll, and back again at the end. It shows my projects and the eye for motion I bring from video. 🚀
+So I made my own logo, `<Co$mo/>`, out of thousands of glowing points that flow into each technology I use as you scroll, and back again at the end. It shows my projects and the eye for motion I bring from video.
+
+The video work has its own page with the same design in coral, where the logo morphs into Premiere Pro, After Effects and Adobe instead. 🚀
 
 ---
 
 ## 🎨 Design
 
-**Dark, cosmic and code-flavored**, with one amber accent.
+**Dark, cosmic and code-flavored**, with one accent per side: amber for dev, coral for video.
 
 - 🟡 Near-black background with an amber `$` accent (coral for the video side)
 - 🪟 Frosted glass sections, so the 3D logo stays visible behind the content
 - 🔤 **Unbounded** for headings, **Manrope** for text, **JetBrains Mono** for code bits
-- 🌀 The logo morphs `<Co$mo/>` → JavaScript → React → Vite → Tailwind → Python → `<Co$mo/>`
-- 🫧 Contact chips fill with WhatsApp green and Telegram blue, and float on hover
+- 🌀 Dev side: `<Co$mo/>` → JavaScript → React → Vite → Tailwind → Python → `<Co$mo/>`
+- 🎬 Video side: `<Co$mo/>` → Premiere Pro → After Effects → Adobe → `<Co$mo/>`
+- 🫧 Contact icons light up in WhatsApp green and Telegram blue, and float on hover
 - ♿ Respects "reduce motion", keyboard focus styles, readable contrast
 
 ---
@@ -48,14 +51,18 @@ So I made my own logo, `<Co$mo/>`, out of thousands of glowing points that flow 
 - 🪐 3D logo made of ~6,500 points that morphs as you scroll
 - 🖱️ The logo tilts with your mouse
 - 📂 Featured project with a 3-phone showcase, plus project cards with live and code links
-- 📬 One-click email copy, plus WhatsApp, Telegram and phone
+- 📬 One-click email copy that morphs into `<copied/>`, plus WhatsApp, Telegram and phone
+- 🎬 Video page with my edits: hover a card for a muted preview, click for the full player
+- 🎞️ A light curtain transition between the dev and video pages, and eased scrolling to each section
 - 📱 Phones get fewer points and a smaller logo so it stays smooth
 
 ### 🛠️ Under the hood
 - ⚡ The 3D code (three.js) loads only after the page appears, so the text shows instantly
 - 🧯 If a device can't run WebGL, a CSS version of the logo stays instead
 - 🎨 Every shape is sampled from a hidden canvas into points; a custom GLSL shader slides each point to the next shape
-- ✏️ All text and links live in one file: `src/data/content.js`
+- 🎞️ Videos stay light: only small poster images load with the page; a video downloads when you hover or click it
+- 🧩 Two pages built from the same components: the video page reuses them with a coral accent
+- ✏️ All text and links live in two files: `src/data/content.js` (dev) and `src/data/video.js` (video)
 
 ---
 
@@ -85,20 +92,34 @@ src/
 │   ├── Projects.jsx       📂 Featured project + cards
 │   ├── Stack.jsx          🧰 Skills by group
 │   ├── Contact.jsx        📬 Email, WhatsApp, Telegram, phone
+│   ├── VideoTeaser.jsx    🎬 Preview card that opens the video page
+│   ├── Scene.jsx          🪐 Loads the 3D logo after the page appears
 │   ├── Logo.jsx           ✏️ Wordmark + CSS fallback logo
 │   ├── Section.jsx        🧱 Shared section wrapper
 │   └── Footer.jsx         🔗 Footer line
+├── video/
+│   ├── VideoApp.jsx       🎬 The video page layout
+│   ├── Work.jsx           🎞️ Video cards with hover previews
+│   ├── Player.jsx         ▶️ Full-screen player
+│   ├── media.js           🔗 Local files, YouTube and Vimeo links
+│   └── main.jsx           🚪 Entry point of the video page
 ├── three/
-│   ├── sampleShapes.js    🎯 Turns the logo + SVGs into points
+│   ├── sampleShapes.js    🎯 Turns the logo + SVGs into points (DEV_SHAPES, VIDEO_SHAPES)
 │   └── MorphCanvas.jsx    🌀 3D scene and morph shader
 ├── data/
-│   └── content.js         ✏️ All the text and links
-├── App.jsx                🧩 Page layout + lazy 3D loading
-└── index.css              🎨 Design tokens, glass, hover animations
+│   ├── content.js         ✏️ Text and links for the dev side
+│   └── video.js           ✏️ Text and videos for the video side
+├── App.jsx                🧩 Dev page layout
+├── boot.js                🎞️ Fonts, page curtain, smooth scrolling
+└── index.css              🎨 Design tokens, glass, animations, coral theme
+
+video/
+└── index.html             🎬 The /video/ page
 
 public/
 ├── logos/                 🖼️ SVGs the logo morphs into
 ├── projects/              📸 Project showcase images
+├── videos/                🎬 My edits + posters/ (preview images)
 └── favicon.svg            💲 The $ favicon
 
 assets/
@@ -120,15 +141,19 @@ npm install
 
 **2. Edit your content**
 
-Open `src/data/content.js` and change the text, links and projects. A link set to `null` stays hidden.
+Open `src/data/content.js` (dev side) or `src/data/video.js` (video side) and change the text, links and projects. A link set to `null` stays hidden.
 
-**3. Add a technology to the morph (optional)**
+**3. Add a video (optional)**
 
-Put its SVG in `public/logos/` and add it to `LOGO_FILES` in `src/three/sampleShapes.js`.
+Put the `.mp4` in `public/videos/`, a poster image in `public/videos/posters/`, and add an entry to `videoProjects` in `src/data/video.js`. A YouTube or Vimeo link works too.
 
-> 💡 One-color SVGs get the brand color you set in `LOGO_FILES` automatically.
+**4. Add a logo to the morph (optional)**
 
-**4. Run it**
+Put its SVG in `public/logos/` and add it to `DEV_SHAPES` or `VIDEO_SHAPES` in `src/three/sampleShapes.js`.
+
+> 💡 One-color SVGs get the `color` you set automatically. For app icons with a dark background, set `hollow` and `edge` to keep just the outline and letters.
+
+**5. Run it**
 ```bash
 npm run dev
 ```
@@ -147,13 +172,13 @@ npm run dev
 - [x] 📬 WhatsApp, Telegram and phone contact chips
 - [x] 🚀 Live on Vercel
 - [x] 📜 Own license: free to use with credit
+- [x] 🎬 Video editing portfolio, linked from the dev side
 
 ### 🚧 In progress
 - [ ] 📸 Instagram Auto-Reply showcase
 
 ### 📌 Planned
 - [ ] 📄 CV download
-- [ ] 🎬 Video editing portfolio and cross-links
 
 ### 🔮 Future ideas
 - [ ] 🌍 Turkish version
@@ -167,6 +192,7 @@ This project has its own license. **Please read [LICENSE.md](LICENSE.md) before 
 
 - ✅ You can copy, change and use it **if you credit me** or **get my permission**
 - 🚫 You can't claim it as your own work
+- 🎬 The videos, project screenshots and my photos are **not** included: they can't be reused
 
 ---
 
