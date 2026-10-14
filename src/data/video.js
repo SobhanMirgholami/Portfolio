@@ -1,7 +1,4 @@
 // All the text on the video portfolio page (/video/) lives here.
-// Videos: paste a YouTube or Vimeo link. YouTube thumbnails are fetched automatically;
-// for Vimeo (or a custom frame) put an image in /public/media/ and set `thumbnail`.
-// A video set to null shows as "coming soon".
 
 export const videoHero = {
   text: 'Video editor and motion designer. I cut reels, ads and YouTube videos with pacing that keeps people watching.',
@@ -15,45 +12,53 @@ export const videoAbout = {
   ],
 }
 
-export const reel = {
-  title: 'Showreel',
-  video: null, // e.g. 'https://youtu.be/XXXXXXXXXXX'
-  thumbnail: null,
-}
-
-// `category` builds the filter buttons automatically.
+// Your videos live in /public/videos/ and their poster images in /public/videos/posters/.
+// Posters load with the page; a video only starts downloading when someone hovers or clicks it.
+// `video` can also be a YouTube or Vimeo link. The first video is shown big at the top.
 export const videoProjects = [
   {
-    title: 'Brand promo',
-    category: 'Commercial',
-    description: 'A 30-second product ad: fast cuts, kinetic type and a clean color grade.',
-    tools: ['Premiere Pro', 'After Effects'],
-    video: null,
-    thumbnail: null,
+    title: 'Hotel apartment tour',
+    category: 'Promo',
+    length: '1:05',
+    description:
+      'A walkthrough promo for a hotel apartment: the building, the lobby and every room type, with on-screen labels for room size so guests know exactly what they are booking.',
+    tags: ['Walkthrough', 'On-screen labels', '16:9'],
+    video: '/videos/hotel-promo.mp4',
+    poster: '/videos/posters/hotel-promo.jpg',
+    vertical: false,
   },
   {
-    title: 'Logo animation',
-    category: 'Motion graphics',
-    description: 'Animated logo reveal with shape layers and sound design.',
-    tools: ['After Effects'],
-    video: null,
-    thumbnail: null,
+    title: 'Client trust reel',
+    category: 'Talking head',
+    length: '0:54',
+    description:
+      "A business-tips reel in Persian about winning clients' trust: big numbered titles for each point, word-by-word captions and a motion-graphics cutaway to keep the pace up.",
+    tags: ['Numbered titles', 'Captions', 'Motion graphics'],
+    video: '/videos/client-growth-reel.mp4',
+    poster: '/videos/posters/client-growth-reel.jpg',
+    vertical: true,
   },
   {
-    title: 'Instagram reels',
-    category: 'Social',
-    description: 'Vertical edits with captions, zooms and beat-synced transitions.',
-    tools: ['Premiere Pro'],
-    video: null,
-    thumbnail: null,
+    title: 'Money talk reel',
+    category: 'Talking head',
+    length: '1:04',
+    description:
+      'A creator reel that opens on a money-rain hook, then holds attention with tight jump cuts, punchy captions and a numbered list.',
+    tags: ['Hook', 'Jump cuts', 'Captions'],
+    video: '/videos/social-media-reel.mp4',
+    poster: '/videos/posters/social-media-reel.jpg',
+    vertical: true,
   },
   {
-    title: 'YouTube episode',
-    category: 'Long-form',
-    description: 'Full episode edit: story structure, b-roll, lower thirds and audio cleanup.',
-    tools: ['Premiere Pro', 'After Effects'],
-    video: null,
-    thumbnail: null,
+    title: 'Learn-Turkish skit',
+    category: 'Comedy short',
+    length: '0:41',
+    description:
+      'A comedy short for a Turkish-teaching page: a car-wash skit as the hook, then each Turkish phrase pops up with its Persian translation and emoji accents.',
+    tags: ['Skit', 'Bilingual captions', 'Emoji pops'],
+    video: '/videos/automotive-short.mp4',
+    poster: '/videos/posters/automotive-short.jpg',
+    vertical: true,
   },
 ]
 

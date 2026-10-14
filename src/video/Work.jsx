@@ -1,61 +1,82 @@
 import { useState } from 'react'
 import Section from '../components/Section.jsx'
 import { videoProjects } from '../data/video.js'
-import { playable } from './media.js'
-import { PlayIcon, Thumb } from './Reel.jsx'
+import { isFile, playable, posterFor } from './media.js'
 
-const categories = ['All', ...new Set(videoProjects.map((p) => p.category))]
-
-function Card({ item, onPlay }) {
-  const canPlay = playable(item)
+function PlayIcon({ className = 'h-16 w-16' }) {
   return (
-    <article className="glass flex flex-col gap-3.5 rounded-3xl p-5 transition-transform duration-300 hover:-translate-y-1">
-      <button
-        type="button"
-        onClick={() => onPlay(item)}
-        disabled={!canPlay}
-        className="group relative block aspect-video w-full overflow-hidden rounded-2xl bg-[#0c0c14]"
-        aria-label={canPlay ? `Play ${item.title}` : `${item.title}, coming soon`}
-      >
-        <Thumb item={item} />
-        <span className="absolute inset-0 flex items-center justify-center">
-          {canPlay ? <PlayIcon className="h-14 w-14" /> : <span className="font-mono text-xs text-[#77778a]">video coming soon</span>}
-        </span>
-      </button>
+    <span className={`play-btn flex items-center justify-center rounded-full bg-coral text-[#12101a] ${className}`} aria-hidden="true">
+      <svg viewBox="0 0 24 24" className="ml-[8%] h-[44%] w-[44%]" fill="currentColor">
+        <path d="M7 4.5v15l12-7.5z" />
+      </svg>
+    </span>
+  )
+}
+
+// The poster image, plus a muted preview that only downloads while the mouse is over it.
+// Clicking opens the full player.
+function Preview({ item, onPlay, className }) {
+  const [hover, setHover] = useState(false)
+  const canPlay = playable(item)
+  const poster = posterFor(item)
+  return (
+    <button
+      type="button"
+      onClick={() => onPlay(item)}
+      onPointerEnter={(e) => e.pointerType === 'mouse' && setHover(true)}
+      onPointerLeave={() => setHover(false)}
+      disabled={!canPlay}
+      className={`group relative block w-full overflow-hidden rounded-2xl bg-[#0c0c14] ${className}`}
+      aria-label={canPlay ? `Play ${item.title}` : `${item.title}, coming soon`}
+    >
+      {poster && <img src={poster} alt="" className="absolute inset-0 h-full w-full object-cover" loading="lazy" decoding="async" />}
+      {hover && isFile(item.video) && (
+        <video src={item.video} className="absolute inset-0 h-full w-full object-cover" muted loop playsInline autoPlay preload="auto" aria-hidden="true" />
+      )}
+      <span className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${hover ? 'opacity-0' : ''}`}>
+        {canPlay ? <PlayIcon className="h-14 w-14" /> : <span className="font-mono text-xs text-[#77778a]">video coming soon</span>}
+      </span>
+      {item.length && (
+        <span className="absolute bottom-3 right-3 rounded-md bg-black/65 px-2 py-1 font-mono text-xs text-fg">{item.length}</span>
+      )}
+    </button>
+  )
+}
+
+function Info({ item, big }) {
+  return (
+    <>
       <p className="font-mono text-xs uppercase text-coral">{item.category}</p>
-      <h3 className="font-display text-xl font-semibold">{item.title}</h3>
-      <p className="leading-relaxed text-muted">{item.description}</p>
-      <p className="mt-auto font-mono text-xs text-dim">{item.tools.join(' · ')}</p>
-    </article>
+      <h3 className={`font-display font-semibold ${big ? 'text-3xl tracking-[-0.02em]' : 'text-xl'}`}>{item.title}</h3>
+      <p className={`leading-relaxed text-muted ${big ? 'text-[17px]' : ''}`}>{item.description}</p>
+      <p className="mt-auto font-mono text-xs text-dim">{item.tags.join(' · ')}</p>
+    </>
   )
 }
 
 export default function Work({ onPlay }) {
-  const [filter, setFilter] = useState('All')
-  const shown = filter === 'All' ? videoProjects : videoProjects.filter((p) => p.category === filter)
+  const [featured, ...rest] = videoProjects
   return (
     <Section id="work" label="// work">
-      <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
-        <h2 className="font-display text-[clamp(28px,3.4vw,44px)] font-semibold tracking-[-0.02em]">Selected edits</h2>
-        <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by type">
-          {categories.map((c) => (
-            <button
-              key={c}
-              type="button"
-              onClick={() => setFilter(c)}
-              aria-pressed={filter === c}
-              className={`rounded-full border px-4 py-2 font-mono text-[13px] transition-colors ${
-                filter === c ? 'border-coral bg-coral text-[#12101a]' : 'border-[#3a3a4a] text-dim hover:border-fg hover:text-fg'
-              }`}
-            >
-              {c}
-            </button>
-          ))}
-        </div>
-      </div>
-      <div className="grid gap-5 md:grid-cols-2">
-        {shown.map((p) => (
-          <Card key={p.title} item={p} onPlay={onPlay} />
+      <h2 className="mb-10 font-display text-[clamp(28px,3.4vw,44px)] font-semibold tracking-[-0.02em]">Selected edits</h2>
+
+      {featured && (
+        <article className="glass glass-coral mb-5 flex flex-col gap-8 rounded-[28px] p-5 sm:p-7 lg:flex-row lg:items-center">
+          <div className="min-w-0 lg:flex-[1.3]">
+            <Preview item={featured} onPlay={onPlay} className={featured.vertical ? 'aspect-[4/5]' : 'aspect-video'} />
+          </div>
+          <div className="flex min-w-0 flex-1 flex-col gap-4">
+            <Info item={featured} big />
+          </div>
+        </article>
+      )}
+
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {rest.map((p) => (
+          <article key={p.title} className="glass flex flex-col gap-3.5 rounded-3xl p-5 transition-transform duration-300 hover:-translate-y-1">
+            <Preview item={p} onPlay={onPlay} className={p.vertical ? 'aspect-[4/5]' : 'aspect-video'} />
+            <Info item={p} />
+          </article>
         ))}
       </div>
     </Section>
