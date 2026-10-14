@@ -71,7 +71,7 @@ export default function Projects() {
 
       <article className="glass mb-5 flex flex-col gap-8 rounded-[28px] p-6 sm:p-8 lg:flex-row">
         <div className="min-w-0 flex-1">
-          <Shot image={main.image} title={main.title} t={t} />
+          {main.gallery ? <Gallery image={main.image} gallery={main.gallery} title={main.title} t={t} /> : <Shot image={main.image} title={main.title} t={t} />}
         </div>
         <div className="flex min-w-0 flex-1 flex-col justify-center gap-4">
           <p className="font-mono text-xs uppercase text-amber">{main.status}</p>

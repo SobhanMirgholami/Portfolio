@@ -125,6 +125,20 @@ export const featured = {
   live: 'https://igu-menu-iqcg.vercel.app',
   code: 'https://github.com/SobhanMirgholami/IGU-menu',
   image: '/projects/cafe-showcase.jpg',
+  // staff and manager screens were captured with sample data, not real orders
+  gallery: [
+    { src: '/projects/igu/student-login.webp', label: { en: 'Student: sign in with a university email', fa: 'دانشجو: ورود با ایمیل دانشگاه', tr: 'Öğrenci: üniversite e-postasıyla giriş' } },
+    { src: '/projects/igu/student-home.webp', label: { en: 'Student: menu and live order progress', fa: 'دانشجو: منو و پیگیری زنده‌ی سفارش', tr: 'Öğrenci: menü ve canlı sipariş takibi' } },
+    { src: '/projects/igu/student-options.webp', label: { en: 'Student: size, milk and extras', fa: 'دانشجو: انتخاب اندازه، شیر و افزودنی', tr: 'Öğrenci: boy, süt ve ekstra seçimi' } },
+    { src: '/projects/igu/student-cart.webp', label: { en: 'Student: cart and pickup time', fa: 'دانشجو: سبد خرید و زمان تحویل', tr: 'Öğrenci: sepet ve teslim saati' } },
+    { src: '/projects/igu/student-arabic-dark.webp', label: { en: 'Arabic, right-to-left, dark theme', fa: 'عربی، راست‌به‌چپ، پوسته‌ی تیره', tr: 'Arapça, sağdan sola, koyu tema' } },
+    { src: '/projects/igu/staff-pin.webp', label: { en: 'Staff: PIN login on the shared computer', fa: 'کارکنان: ورود با PIN روی سیستم مشترک', tr: 'Personel: ortak bilgisayarda PIN girişi' } },
+    { src: '/projects/igu/staff-orders.webp', label: { en: 'Staff: live orders dashboard', fa: 'کارکنان: داشبورد زنده‌ی سفارش‌ها', tr: 'Personel: canlı sipariş paneli' } },
+    { src: '/projects/igu/manager-menu.webp', label: { en: 'Manager: menu editor in 3 languages', fa: 'مدیر: ویرایش منو به ۳ زبان', tr: 'Yönetici: 3 dilde menü düzenleyici' } },
+    { src: '/projects/igu/manager-options.webp', label: { en: 'Manager: option groups', fa: 'مدیر: گروه‌های گزینه', tr: 'Yönetici: seçenek grupları' } },
+    { src: '/projects/igu/manager-staff.webp', label: { en: 'Manager: staff and activity log', fa: 'مدیر: کارکنان و گزارش فعالیت', tr: 'Yönetici: personel ve işlem kaydı' } },
+    { src: '/projects/igu/manager-reports.webp', label: { en: 'Manager: sales report with Excel export', fa: 'مدیر: گزارش فروش با خروجی Excel', tr: 'Yönetici: Excel’e aktarılabilen satış raporu' } },
+  ],
 }
 
 export const projects = [
@@ -164,6 +178,13 @@ export const projects = [
     live: 'https://roll-digital-menu.netlify.app',
     code: 'https://github.com/SobhanMirgholami/roll-menu',
     image: '/projects/roll-showcase.jpg',
+    gallery: [
+      { src: '/projects/roll/menu-desktop.webp', label: { en: 'Menu on desktop', fa: 'منو روی دسکتاپ', tr: 'Masaüstünde menü' } },
+      { src: '/projects/roll/menu-mobile.webp', label: { en: 'Menu on a phone, by category', fa: 'منو روی گوشی، با دسته‌بندی', tr: 'Telefonda menü, kategoriye göre' } },
+      { src: '/projects/roll/admin-login.webp', label: { en: 'Admin sign-in', fa: 'ورود مدیر', tr: 'Yönetici girişi' } },
+      { src: '/projects/roll/admin-products.webp', label: { en: 'Admin: add and manage products', fa: 'پنل مدیریت: افزودن و مدیریت محصولات', tr: 'Yönetim: ürün ekleme ve yönetme' } },
+      { src: '/projects/roll/admin-edit.webp', label: { en: 'Admin: edit a product', fa: 'پنل مدیریت: ویرایش محصول', tr: 'Yönetim: ürün düzenleme' } },
+    ],
   },
   {
     status: { en: 'In progress', fa: 'در حال ساخت', tr: 'Geliştiriliyor' },
