@@ -1,11 +1,13 @@
 import Section from './Section.jsx'
 import { stack } from '../data/content.js'
+import { useText } from '../i18n.jsx'
 
 export default function Stack({ groups = stack, label = '// stack' }) {
+  const list = useText(groups)
   return (
     <Section id="stack" label={label}>
-      <div className="glass flex flex-col gap-8 rounded-[28px] p-7 sm:p-10 lg:ml-[20%]">
-        {groups.map((g) => (
+      <div className="glass flex flex-col gap-8 rounded-[28px] p-7 sm:p-10 lg:ms-[20%]">
+        {list.map((g) => (
           <div key={g.group} className="flex flex-col gap-3">
             <h3 className="font-display text-base font-semibold">{g.group}</h3>
             <ul className="flex flex-wrap gap-2.5">

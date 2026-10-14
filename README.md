@@ -13,7 +13,7 @@
 ![Three.js](https://img.shields.io/badge/Three.js-000000?style=for-the-badge&logo=threedotjs&logoColor=white)
 ![WebGL](https://img.shields.io/badge/WebGL-990000?style=for-the-badge&logo=webgl&logoColor=white)
 
-**🌙 Dark · 🪟 Frosted glass · 🌀 3D scroll morph · 🎬 Video portfolio · 📱 Mobile ready**
+**🌙 Dark · 🪟 Frosted glass · 🌀 3D scroll morph · 🎬 Video portfolio · 🌍 English + فارسی · 📱 Mobile ready**
 
 ### 🔗 [Dev side](https://sobhan-cosmo.vercel.app) · [Video side](https://sobhan-cosmo.vercel.app/video/)
 
@@ -37,7 +37,7 @@ The video work has its own page with the same design in coral, where the logo mo
 
 - 🟡 Near-black background with an amber `$` accent (coral for the video side)
 - 🪟 Frosted glass sections, so the 3D logo stays visible behind the content
-- 🔤 **Unbounded** for headings, **Manrope** for text, **JetBrains Mono** for code bits
+- 🔤 **Unbounded** for headings, **Manrope** for text, **JetBrains Mono** for code bits, **Vazirmatn** for Persian
 - 🌀 Dev side: `<Co$mo/>` → JavaScript → React → Vite → Tailwind → Python → `<Co$mo/>`
 - 🎬 Video side: `<Co$mo/>` → Premiere Pro → After Effects → Adobe → `<Co$mo/>`
 - 🫧 Contact icons light up in WhatsApp green and Telegram blue, and float on hover
@@ -54,6 +54,7 @@ The video work has its own page with the same design in coral, where the logo mo
 - 📬 One-click email copy that morphs into `<copied/>`, plus WhatsApp, Telegram and phone
 - 🎬 Video page with my edits: hover a card for a muted preview, click for the full player
 - 🎞️ A light curtain transition between the dev and video pages, and eased scrolling to each section
+- 🌍 An **EN | فا** switch in the top bar: Persian flips the whole layout to right-to-left, and the choice is remembered on your next visit
 - 📱 Phones get fewer points and a smaller logo so it stays smooth
 
 ### 🛠️ Under the hood
@@ -63,6 +64,8 @@ The video work has its own page with the same design in coral, where the logo mo
 - 🎞️ Videos stay light: only small poster images load with the page; a video downloads when you hover or click it
 - 🧩 Two pages built from the same components: the video page reuses them with a coral accent
 - ✏️ All text and links live in two files: `src/data/content.js` (dev) and `src/data/video.js` (video)
+- 🌍 Bilingual without a library: any text can be `{ en, fa }`, and `src/i18n.jsx` picks the active language, sets `<html lang="fa" dir="rtl">` and saves the choice in `localStorage` (English by default)
+- ↔️ Layout uses logical CSS (`ms-`, `ps-`, `end-`), so right-to-left mirrors cleanly; the `<Co$mo/>` logo, email and phone stay left-to-right
 
 ---
 
@@ -73,7 +76,8 @@ The video work has its own page with the same design in coral, where the logo mo
 | ⚛️ Frontend | React 19 + Vite 8 |
 | 🎨 Styling | Tailwind CSS 4 with design tokens |
 | 🪐 3D | three.js + React Three Fiber, custom GLSL shader |
-| 🔤 Fonts | Unbounded, Manrope, JetBrains Mono (self-hosted with Fontsource) |
+| 🔤 Fonts | Unbounded, Manrope, JetBrains Mono, Vazirmatn (self-hosted with Fontsource) |
+| 🌍 Languages | English and Persian (RTL), with a small built-in i18n helper |
 | 🚀 Hosting | Vercel, auto-deploy on every push |
 
 ---
@@ -110,6 +114,7 @@ src/
 │   ├── content.js         ✏️ Text and links for the dev side
 │   └── video.js           ✏️ Text and videos for the video side
 ├── App.jsx                🧩 Dev page layout
+├── i18n.jsx               🌍 EN / فا switch, RTL and the { en, fa } text picker
 ├── boot.js                🎞️ Fonts, page curtain, smooth scrolling
 └── index.css              🎨 Design tokens, glass, animations, coral theme
 
@@ -141,7 +146,7 @@ npm install
 
 **2. Edit your content**
 
-Open `src/data/content.js` (dev side) or `src/data/video.js` (video side) and change the text, links and projects. A link set to `null` stays hidden.
+Open `src/data/content.js` (dev side) or `src/data/video.js` (video side) and change the text, links and projects. A link set to `null` stays hidden. Text shown in both languages is written as `{ en: '...', fa: '...' }`.
 
 **3. Add a video (optional)**
 
@@ -173,6 +178,7 @@ npm run dev
 - [x] 🚀 Live on Vercel
 - [x] 📜 Own license: free to use with credit
 - [x] 🎬 Video editing portfolio, linked from the dev side
+- [x] 🌍 Persian version: EN / فا switch with a right-to-left layout
 
 ### 🚧 In progress
 - [ ] 📸 Instagram Auto-Reply showcase

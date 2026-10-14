@@ -5,6 +5,7 @@ export default function Logo({ size = 20, className = '' }) {
       className={`inline-flex items-center font-mono font-semibold tracking-tight ${className}`}
       style={{ fontSize: size }}
       aria-label="Co$mo"
+      dir="ltr"
     >
       <span className="text-[#5d5d75]" aria-hidden="true">&lt;</span>
       <span aria-hidden="true">Co</span>
@@ -23,7 +24,7 @@ export default function Logo({ size = 20, className = '' }) {
 // A CSS-only "3D" version, shown before the WebGL scene is ready.
 export function LogoFallback({ size = 84 }) {
   return (
-    <div className="logo-3d relative whitespace-nowrap font-mono font-semibold leading-none tracking-tighter" style={{ fontSize: size }} aria-hidden="true">
+    <div className="logo-3d relative whitespace-nowrap font-mono font-semibold leading-none tracking-tighter" style={{ fontSize: size }} dir="ltr" aria-hidden="true">
       <div
         className="absolute left-0 top-0 text-[#15151f]"
         style={{

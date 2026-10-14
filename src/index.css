@@ -14,7 +14,21 @@
 
   --font-display: "Unbounded Variable", "Arial Black", sans-serif;
   --font-sans: "Manrope Variable", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  --font-mono: "JetBrains Mono", ui-monospace, Consolas, "Vazirmatn Variable", monospace;
+}
+
+/* Persian (FA): Vazirmatn for everything; Latin bits inside mono labels keep JetBrains Mono.
+   Arabic script is joined, so letter-spacing would tear words apart, and its tall dots need more line height. */
+html[lang="fa"] {
+  --font-display: "Vazirmatn Variable", "Unbounded Variable", sans-serif;
+  --font-sans: "Vazirmatn Variable", "Manrope Variable", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Vazirmatn Variable", ui-monospace, monospace;
+}
+html[lang="fa"] body * {
+  letter-spacing: normal;
+}
+html[lang="fa"] :is(h1, h2) {
+  line-height: 1.25;
 }
 
 /* The video page (/video/) swaps the amber accent for coral: every amber class,

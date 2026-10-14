@@ -5,6 +5,7 @@ import '@fontsource-variable/unbounded'
 import '@fontsource-variable/manrope'
 import '@fontsource/jetbrains-mono/400.css'
 import '@fontsource/jetbrains-mono/600.css'
+import '@fontsource-variable/vazirmatn' // Persian; only downloaded when Persian text is on screen
 
 import './index.css'
 
@@ -49,11 +50,15 @@ for (const type of ['wheel', 'touchstart']) {
 // Leaving: a dark panel with a glowing line in the destination's color slides up over the page.
 // Arriving: the same panel starts on screen and slides away.
 const ACCENT = { dev: '#f5b942', video: '#ff5d7a' }
+const CURTAIN_LABEL = {
+  en: { dev: 'dev work', video: 'video work' },
+  fa: { dev: 'کارهای برنامه‌نویسی', video: 'کارهای ویدیویی' },
+}
 function curtain(side, phase) {
   const el = document.createElement('div')
   el.className = `curtain curtain-${phase}`
   el.style.setProperty('--curtain-accent', ACCENT[side])
-  el.innerHTML = `<span>// ${side === 'video' ? 'video work' : 'dev work'}</span>`
+  el.innerHTML = `<span>// ${CURTAIN_LABEL[document.documentElement.lang === 'fa' ? 'fa' : 'en'][side]}</span>`
   el.setAttribute('aria-hidden', 'true')
   document.body.appendChild(el)
   return el

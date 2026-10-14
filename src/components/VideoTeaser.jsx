@@ -1,4 +1,5 @@
 import { profile, videoTeaser } from '../data/content.js'
+import { useText } from '../i18n.jsx'
 
 // Until there's a picture, the preview shows a little editing timeline.
 function TimelinePlaceholder() {
@@ -23,6 +24,7 @@ function TimelinePlaceholder() {
 
 // The preview card on the main site; the whole card links to the video portfolio page.
 export default function VideoTeaser() {
+  const teaser = useText(videoTeaser)
   return (
     <div className="relative z-10 mx-auto max-w-7xl px-5 pb-20 sm:px-10">
       <a
@@ -30,8 +32,8 @@ export default function VideoTeaser() {
         className="video-teaser glass glass-coral group flex flex-col gap-7 rounded-[28px] p-5 text-fg sm:p-7 lg:flex-row lg:items-center lg:gap-10"
       >
         <div className="relative aspect-video w-full shrink-0 overflow-hidden rounded-2xl bg-[#140c14] lg:w-[48%]">
-          {videoTeaser.image ? (
-            <img src={videoTeaser.image} alt="" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+          {teaser.image ? (
+            <img src={teaser.image} alt="" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
           ) : (
             <TimelinePlaceholder />
           )}
@@ -42,11 +44,11 @@ export default function VideoTeaser() {
           </span>
         </div>
         <div className="flex min-w-0 flex-col items-start gap-4 pb-2 lg:pb-0">
-          <p className="font-mono text-[13px] text-coral">{videoTeaser.kicker}</p>
-          <p className="font-display text-[clamp(26px,3vw,40px)] font-semibold leading-tight tracking-[-0.02em]">{videoTeaser.title}</p>
-          <p className="text-lg leading-relaxed text-muted">{videoTeaser.text}</p>
-          <span className="mt-2 rounded-full bg-coral px-6 py-4 font-bold text-[#12101a] transition-transform duration-300 group-hover:translate-x-1">
-            Watch my work →
+          <p className="font-mono text-[13px] text-coral">{teaser.kicker}</p>
+          <p className="font-display text-[clamp(26px,3vw,40px)] font-semibold leading-tight tracking-[-0.02em]">{teaser.title}</p>
+          <p className="text-lg leading-relaxed text-muted">{teaser.text}</p>
+          <span className="mt-2 rounded-full bg-coral px-6 py-4 font-bold text-[#12101a] transition-transform duration-300 group-hover:translate-x-1 rtl:group-hover:-translate-x-1">
+            {teaser.button}
           </span>
         </div>
       </a>

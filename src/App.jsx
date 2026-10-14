@@ -9,36 +9,25 @@ import Contact from './components/Contact.jsx'
 import Footer from './components/Footer.jsx'
 import Scene from './components/Scene.jsx'
 import { DEV_SHAPES } from './three/sampleShapes.js'
-import { profile } from './data/content.js'
-
-const links = [
-  { href: '#about', label: 'about' },
-  { href: '#projects', label: 'projects' },
-  { href: '#stack', label: 'stack' },
-  { href: '#contact', label: 'contact' },
-]
+import { devPage, profile } from './data/content.js'
+import { useText } from './i18n.jsx'
 
 export default function App() {
   const [sceneReady, setSceneReady] = useState(false)
   const onReady = useCallback(() => setSceneReady(true), [])
+  const page = useText(devPage)
+  const { role, pitch } = useText(profile)
 
   return (
     <>
-      <Nav links={links} cta={{ href: profile.videoSite, label: 'Video work →', className: 'bg-coral' }} />
+      <Nav links={page.links} cta={{ href: profile.videoSite, label: page.cta, className: 'bg-coral' }} />
       <main>
-        <Hero
-          sceneReady={sceneReady}
-          text={`${profile.role} ${profile.pitch}`}
-          actions={[
-            { href: '#projects', label: 'See projects', primary: true },
-            { href: '#contact', label: 'Get in touch' },
-          ]}
-        />
-        <About />
+        <Hero sceneReady={sceneReady} text={`${role} ${pitch}`} actions={page.actions} />
+        <About label={page.aboutLabel} />
         <Projects />
-        <Stack />
+        <Stack label={page.stackLabel} />
         <VideoTeaser />
-        <Contact />
+        <Contact note={page.note} />
       </main>
       <Footer />
       <Scene shapes={DEV_SHAPES} onReady={onReady} />

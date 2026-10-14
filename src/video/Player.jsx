@@ -1,10 +1,13 @@
 import { useEffect, useRef } from 'react'
 import { embedUrl, isFile } from './media.js'
+import { videoPage } from '../data/video.js'
+import { useText } from '../i18n.jsx'
 
 // Full-screen player. Esc, the close button or a click outside the video closes it.
 // Vertical videos get a narrow frame so they fit the screen height.
 export default function Player({ item, onClose }) {
   const dialog = useRef(null)
+  const t = useText(videoPage.work)
 
   useEffect(() => {
     const d = dialog.current
@@ -30,7 +33,7 @@ export default function Player({ item, onClose }) {
               onClick={() => dialog.current.close()}
               className="shrink-0 rounded-full border border-[#3a3a4a] px-4 py-2 font-mono text-sm hover:border-fg"
             >
-              close ✕
+              {t.close}
             </button>
           </div>
           <div className={`overflow-hidden rounded-2xl bg-black ${item.vertical ? 'aspect-[9/16]' : 'aspect-video'}`}>

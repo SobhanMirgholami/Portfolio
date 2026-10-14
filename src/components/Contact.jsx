@@ -1,9 +1,11 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { profile } from '../data/content.js'
+import { profile, ui } from '../data/content.js'
+import { useLang, useText } from '../i18n.jsx'
 
 // After copying, the label morphs into "<copied/>" with a tick, stays locked for 2s, then morphs back.
 // Both labels sit on top of each other; the button is sized to the wider one so nothing around it moves.
-function CopyEmail() {
+function CopyEmail({ t }) {
+  const { lang } = useLang()
   const [copied, setCopied] = useState(false)
   const [width, setWidth] = useState(null)
   const idleRef = useRef(null)
@@ -15,7 +17,7 @@ function CopyEmail() {
     const measure = () => setWidth(Math.max(idleRef.current.offsetWidth, doneRef.current.offsetWidth) + 42)
     measure()
     document.fonts?.ready.then(measure)
-  }, [])
+  }, [lang])
   useEffect(() => () => clearTimeout(timer.current), [])
 
   const copy = async () => {
@@ -49,14 +51,14 @@ function CopyEmail() {
       className="copy-btn relative overflow-hidden rounded-full border border-[#3a3a4a] px-5 py-[15px] font-bold text-fg enabled:hover:border-fg"
     >
       <span className="invisible" aria-hidden="true">x</span>
-      <span ref={idleRef} className="copy-label copy-idle" aria-hidden={copied}>Copy email</span>
+      <span ref={idleRef} className="copy-label copy-idle" aria-hidden={copied}>{t.copyEmail}</span>
       <span ref={doneRef} className="copy-label copy-done flex items-center gap-2 font-mono text-amber" aria-hidden={!copied}>
         <svg className="h-4 w-4" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
           <path className="copy-tick" d="M3 8.5 6.5 12 13 4.5" />
         </svg>
         {'<copied/>'}
       </span>
-      <span className="sr-only" aria-live="polite">{copied ? 'Email copied' : ''}</span>
+      <span className="sr-only" aria-live="polite">{copied ? t.copied : ''}</span>
     </button>
   )
 }
@@ -80,12 +82,12 @@ const icons = {
   ),
 }
 
-function ContactChip({ href, label, value, icon, brand, external }) {
+function ContactChip({ href, label, value, icon, brand, external, ltr }) {
   return (
     <a
       href={href}
       {...(external ? { target: '_blank', rel: 'noreferrer' } : {})}
-      className="contact-chip glass flex min-w-0 max-w-full items-center gap-3 rounded-2xl py-3 pl-4 pr-5 text-fg"
+      className="contact-chip glass flex min-w-0 max-w-full items-center gap-3 rounded-2xl py-3 ps-4 pe-5 text-fg"
       style={{ '--brand': brand }}
     >
       <svg className="chip-icon h-7 w-7 shrink-0 text-fg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round" aria-hidden="true">
@@ -93,37 +95,38 @@ function ContactChip({ href, label, value, icon, brand, external }) {
       </svg>
       <span className="flex min-w-0 flex-col leading-tight">
         <span className="font-mono text-[11px] uppercase tracking-wider text-dim">{label}</span>
-        <span className="truncate font-semibold">{value}</span>
+        <span className="truncate font-semibold" dir={ltr ? 'ltr' : undefined}>{value}</span>
       </span>
     </a>
   )
 }
 
-export default function Contact({ note = 'Open to internships, junior roles and freelance work.' }) {
+export default function Contact({ note }) {
+  const t = useText(ui.contact)
   const outline = 'rounded-full border border-[#3a3a4a] px-5 py-[15px] font-bold text-fg hover:border-fg'
   return (
     <section id="contact" className="relative z-10 mx-auto max-w-7xl scroll-mt-20 border-t border-line/70 px-5 py-20 sm:px-10 sm:py-28">
       <div className="flex flex-col gap-10 lg:flex-row lg:items-center">
         <div className="flex min-w-0 flex-1 flex-col items-start gap-7">
-          <p className="font-mono text-sm text-amber">// contact</p>
+          <p className="font-mono text-sm text-amber">{t.label}</p>
           <h2 className="font-display text-[clamp(36px,6vw,80px)] font-extrabold leading-none tracking-[-0.04em]">
-            Let's build
+            {t.heading[0]}
             <br />
-            something.
+            {t.heading[1]}
           </h2>
           <p className="text-lg text-muted">{note}</p>
-          <p className="select-all break-all font-mono text-base text-fg sm:text-lg">{profile.email}</p>
+          <p className="select-all break-all font-mono text-base text-fg sm:text-lg" dir="ltr">{profile.email}</p>
           <div className="flex flex-wrap gap-3">
-            <a href={`mailto:${profile.email}`} className="rounded-full bg-amber px-6 py-4 font-bold text-ink">Email me</a>
-            <CopyEmail />
+            <a href={`mailto:${profile.email}`} className="rounded-full bg-amber px-6 py-4 font-bold text-ink">{t.emailMe}</a>
+            <CopyEmail t={t} />
             <a href={profile.github} target="_blank" rel="noreferrer" className={outline}>GitHub</a>
             <a href={profile.linkedin} target="_blank" rel="noreferrer" className={outline}>LinkedIn</a>
-            {profile.cv && <a href={profile.cv} className={outline}>Download CV</a>}
+            {profile.cv && <a href={profile.cv} className={outline}>{t.downloadCv}</a>}
           </div>
           <div className="flex w-full flex-wrap gap-3">
-            <ContactChip href={`https://wa.me/${profile.phone.replace('+', '')}`} label="WhatsApp" value="Chat with me" icon="whatsapp" brand="#25D366" external />
-            <ContactChip href={`https://t.me/${profile.telegram}`} label="Telegram" value={`@${profile.telegram}`} icon="telegram" brand="#26A5E4" external />
-            <ContactChip href={`tel:${profile.phone}`} label="Phone" value={profile.phoneDisplay} icon="phone" brand="var(--color-amber)" />
+            <ContactChip href={`https://wa.me/${profile.phone.replace('+', '')}`} label={t.whatsapp} value={t.whatsappValue} icon="whatsapp" brand="#25D366" external />
+            <ContactChip href={`https://t.me/${profile.telegram}`} label={t.telegram} value={`@${profile.telegram}`} icon="telegram" brand="#26A5E4" external ltr />
+            <ContactChip href={`tel:${profile.phone}`} label={t.phone} value={profile.phoneDisplay} icon="phone" brand="var(--color-amber)" ltr />
           </div>
         </div>
         <div data-morph-anchor="contact" className="h-[180px] w-full shrink-0 sm:h-[260px] lg:h-[420px] lg:flex-1" aria-hidden="true" />
