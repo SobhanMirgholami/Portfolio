@@ -32,7 +32,7 @@ function Gallery({ image, gallery, title, t }) {
   const [active, setActive] = useState(0)
   const current = items[active]
   return (
-    <div className="flex flex-col gap-2.5">
+    <div className="flex min-w-0 flex-col gap-2.5">
       <a href={current.src} target="_blank" rel="noreferrer" title={t.fullSize} className="block overflow-hidden rounded-2xl bg-black/40">
         <img src={current.src} alt={`${t.screenshotOf} ${title}: ${current.label}`} className="aspect-[18/11] w-full object-contain" loading="lazy" />
       </a>
@@ -87,7 +87,7 @@ export default function Projects() {
 
       <div className="grid gap-5 md:grid-cols-2">
         {list.map((p) => (
-          <article key={p.title} className="glass flex flex-col gap-3.5 rounded-3xl p-6 transition-transform duration-300 hover:-translate-y-1">
+          <article key={p.title} className="glass flex min-w-0 flex-col gap-3.5 rounded-3xl p-6 transition-transform duration-300 hover:-translate-y-1">
             {p.gallery ? <Gallery image={p.image} gallery={p.gallery} title={p.title} t={t} /> : <Shot image={p.image} title={p.title} t={t} />}
             <p className="font-mono text-xs uppercase text-amber">{p.status}</p>
             <h3 className="font-display text-xl font-semibold">{p.title}</h3>
