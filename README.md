@@ -174,6 +174,7 @@ npm run dev
 - [x] 🪐 3D morphing hero with my real tech logos
 - [x] 🪟 Frosted glass sections
 - [x] 📸 Project showcases for IGU Café and Cafe Roll
+- [x] 💐 Golfroshi flower shop added to projects
 - [x] 📬 WhatsApp, Telegram and phone contact chips
 - [x] 🚀 Live on Vercel
 - [x] 📜 Own license: free to use with credit

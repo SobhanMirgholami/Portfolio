@@ -167,6 +167,27 @@ export const projects = [
     ],
   },
   {
+    status: { en: 'Demo · Open source', fa: 'دمو · متن‌باز', tr: 'Demo · Açık kaynak' },
+    title: { en: 'Golfroshi Flower Atelier', fa: 'گلفروشی Golfroshi', tr: 'Golfroshi Çiçek Atölyesi' },
+    description: {
+      en: 'A minimal flower shop site that shows only the bouquets available right now, in Turkish, English and Arabic (right-to-left) with light and dark themes. The florist adds, edits and marks bouquets sold out from an admin panel; it runs in a browser-only demo mode or on Supabase with row-level security, so sold-out bouquets never leave the database.',
+      fa: 'سایت مینیمال یک گل‌فروشی که فقط دسته‌گل‌های موجودِ همین حالا را نشان می‌دهد، به ترکی، انگلیسی و عربی (راست‌به‌چپ) با پوسته‌ی روشن و تیره. گل‌فروش از پنل مدیریت دسته‌گل‌ها را اضافه و ویرایش می‌کند و «تمام شد» می‌زند؛ سایت هم در حالت دموی بدون سرور کار می‌کند و هم روی Supabase با row-level security، طوری که دسته‌گل‌های تمام‌شده اصلاً از دیتابیس بیرون نمی‌آیند.',
+      tr: 'Yalnızca şu an mevcut olan buketleri gösteren minimal bir çiçekçi sitesi; Türkçe, İngilizce ve Arapça (sağdan sola), açık ve koyu temalı. Çiçekçi buketleri yönetim panelinden ekler, düzenler ve tükendi olarak işaretler; site tarayıcıda çalışan bir demo modunda ya da row-level security ile Supabase üzerinde çalışır, böylece tükenen buketler veritabanından hiç çıkmaz.',
+    },
+    tags: ['React', 'Supabase', 'RLS', 'i18next', 'Tailwind CSS', 'Motion'],
+    live: null,
+    code: 'https://github.com/SobhanMirgholami/golfroshi',
+    image: '/projects/golfroshi-showcase.jpg',
+    gallery: [
+      { src: '/projects/golfroshi/shop-light.webp', label: { en: 'Shop page, light theme', fa: 'صفحه‌ی فروشگاه، پوسته‌ی روشن', tr: 'Mağaza sayfası, açık tema' } },
+      { src: '/projects/golfroshi/shop-dark-tr.webp', label: { en: 'Turkish, dark theme', fa: 'ترکی، پوسته‌ی تیره', tr: 'Türkçe, koyu tema' } },
+      { src: '/projects/golfroshi/mobile-ar.webp', label: { en: 'Arabic on a phone, right-to-left', fa: 'عربی روی گوشی، راست‌به‌چپ', tr: 'Telefonda Arapça, sağdan sola' } },
+      { src: '/projects/golfroshi/bouquet-detail.webp', label: { en: 'Bouquet details', fa: 'جزئیات دسته‌گل', tr: 'Buket detayı' } },
+      { src: '/projects/golfroshi/admin-bouquets.webp', label: { en: 'Admin: bouquets and sold-out switch', fa: 'پنل مدیریت: دسته‌گل‌ها و کلید «تمام شد»', tr: 'Yönetim: buketler ve tükendi düğmesi' } },
+      { src: '/projects/golfroshi/admin-edit.webp', label: { en: 'Admin: editor in three languages', fa: 'پنل مدیریت: ویرایش به سه زبان', tr: 'Yönetim: üç dilde düzenleyici' } },
+    ],
+  },
+  {
     status: { en: 'Live', fa: 'آنلاین', tr: 'Yayında' },
     title: { en: 'Cafe Roll Digital Menu', fa: 'منوی دیجیتال کافه رول', tr: 'Cafe Roll Dijital Menü' },
     description: {
