@@ -167,7 +167,7 @@ export const projects = [
     ],
   },
   {
-    status: { en: 'Demo · Open source', fa: 'دمو · متن‌باز', tr: 'Demo · Açık kaynak' },
+    status: { en: 'Live · Open source', fa: 'آنلاین · متن‌باز', tr: 'Yayında · Açık kaynak' },
     title: { en: 'Golfroshi Flower Atelier', fa: 'گلفروشی Golfroshi', tr: 'Golfroshi Çiçek Atölyesi' },
     description: {
       en: 'A minimal flower shop site that shows only the bouquets available right now, in Turkish, English and Arabic (right-to-left) with light and dark themes. The florist adds, edits and marks bouquets sold out from an admin panel; it runs in a browser-only demo mode or on Supabase with row-level security, so sold-out bouquets never leave the database.',
@@ -175,7 +175,7 @@ export const projects = [
       tr: 'Yalnızca şu an mevcut olan buketleri gösteren minimal bir çiçekçi sitesi; Türkçe, İngilizce ve Arapça (sağdan sola), açık ve koyu temalı. Çiçekçi buketleri yönetim panelinden ekler, düzenler ve tükendi olarak işaretler; site tarayıcıda çalışan bir demo modunda ya da row-level security ile Supabase üzerinde çalışır, böylece tükenen buketler veritabanından hiç çıkmaz.',
     },
     tags: ['React', 'Supabase', 'RLS', 'i18next', 'Tailwind CSS', 'Motion'],
-    live: null,
+    live: 'https://golfroshi.vercel.app',
     code: 'https://github.com/SobhanMirgholami/golfroshi',
     image: '/projects/golfroshi-showcase.jpg',
     gallery: [
